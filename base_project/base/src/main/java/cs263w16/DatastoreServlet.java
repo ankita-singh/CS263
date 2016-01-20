@@ -133,7 +133,8 @@ public class DatastoreServlet extends HttpServlet {
       datastore.put(tne);
       //resp.getWriter().println("Stored "+name+ " and "+value+" in Datastore");
       mem_object = serializeObject(tne);
-      syncCache.put(item_key1,tne);
+      //Key key1 = KeyFactory.createKey(tne, name);
+      syncCache.put(item_key1,mem_object);
       resp.getWriter().println("Stored "+name+ " and "+value+" in Memcache");
       resp.getWriter().println("<br>"+name);
       //resp.getWriter().println("<br>"+mem_object);
