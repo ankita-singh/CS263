@@ -164,6 +164,6 @@ public class DSTester {
 
 /////////////////////////////////////////////////////////
   private static URI getBaseURI() {
-    return UriBuilder.fromUri("http://localhost:8080/").build();
+    return UriBuilder.fromUri("http://base-project-1192.appspot.com/").build();
   }
 } 
