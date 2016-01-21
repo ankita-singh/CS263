@@ -80,14 +80,14 @@ public class DatastoreServlet extends HttpServlet {
             
             resp.getWriter().println("<br><br><br>"); 
             resp.getWriter().println("Memcache Values <br><br>");
-            byte[] cache_value;
+            String cache_value;
             
           for (String key_value : list)
             {
              
              Key item_key1 = KeyFactory.createKey("TaskData",key_value);
-             cache_value =  (byte[]) syncCache.get(item_key1);
-             resp.getWriter().println(item_key1+" : ");
+             cache_value =  (String) syncCache.get(key_value);
+             resp.getWriter().println(key_value+" : ");
              resp.getWriter().println(cache_value+"<br><br>");
              //String cache_entity_value = (String) cache_value.getProperty("value"); 
              //Date cache_entity_date = (Date)cache_value.getProperty("date"); 
@@ -132,9 +132,9 @@ public class DatastoreServlet extends HttpServlet {
       tne.setProperty("date", dNow);
       datastore.put(tne);
       //resp.getWriter().println("Stored "+name+ " and "+value+" in Datastore");
-      mem_object = serializeObject(tne);
+      //mem_object = serializeObject(tne);
       //Key key1 = KeyFactory.createKey(tne, name);
-      syncCache.put(item_key1,mem_object);
+      syncCache.put(name,value);
       resp.getWriter().println("Stored "+name+ " and "+value+" in Memcache");
       resp.getWriter().println("<br>"+name);
       //resp.getWriter().println("<br>"+mem_object);
@@ -146,7 +146,7 @@ public class DatastoreServlet extends HttpServlet {
       else if (name != null ) 
       {       
 
-              byte[] mem_value;
+              String mem_value;
               Entity item_entity;
               boolean mem_pres = false;
               boolean data_pres = false;
@@ -154,7 +154,7 @@ public class DatastoreServlet extends HttpServlet {
               Key item_key = KeyFactory.createKey("TaskData",name);
               try
               {
-                  mem_value =  (byte[])syncCache.get(item_key);
+                  mem_value =  (String)syncCache.get(name);
 
                   if(mem_value == null)
                   {
@@ -163,9 +163,10 @@ public class DatastoreServlet extends HttpServlet {
                       item_entity = datastore.get(item_key);
                       Key gen_key = item_entity.getKey();
                       String entity_name = gen_key.getName();
-                      mem_value = serializeObject(item_entity);
+                      mem_value = (String)item_entity.getProperty("value");
+                      //mem_value = serializeObject(item_entity);
                       resp.getWriter().println("Value stored in cache is"+mem_value);
-                      syncCache.put(item_key, mem_value);
+                      syncCache.put(name, mem_value);
                       resp.getWriter().println("<br>"+item_key);
                       resp.getWriter().println("<br>"+mem_value);
                       data_pres = true;

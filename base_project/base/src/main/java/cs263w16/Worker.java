@@ -45,15 +45,15 @@ public class Worker extends HttpServlet {
         syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
        
 
-        byte[] mem_object;
+        //byte[] mem_object;
       	Entity tne = new Entity("TaskData",key_name);
       	Key item_key = KeyFactory.createKey("TaskData",key_name);
       	tne.setProperty("value",key_value);
       	Date dNow = new Date( );
       	tne.setProperty("date", dNow);
       	datastore.put(tne);
-        mem_object = serializeObject(tne);
-        syncCache.put(item_key,mem_object);
+        //mem_object = serializeObject(tne);
+        syncCache.put(key_name,key_value);
      
 
     }
