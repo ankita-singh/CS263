@@ -54,13 +54,13 @@ public class DatastoreResource {
     try{
       Query fetchAll = new Query("TaskData");
       
-      for(Entity td : datastore.prepare(fetchAll).asList(FetchOptions.Builder.withLimit(100))){
+      for(Entity td : datastore.prepare(fetchAll).asList(FetchOptions.Builder.withLimit(20))){
         list.add(new TaskData((String)td.getProperty("keyname"), (String)td.getProperty("value"), (Date)td.getProperty("date")));
       }      
       
     }
     catch(Exception e){
-      System.out.println("Exception occured while getting the the task data");
+      System.out.println("Could not fetch the task data");
       return null;
     }
     return list;
