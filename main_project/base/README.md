@@ -1,4 +1,4 @@
-#SPORTIFY
+#LetsPlay
 =============================
 
 
@@ -16,4 +16,10 @@ This is an interest and time availability based application, which aims to tackl
 
 ##Design and Plan
 The plan is to include the basic functionalities initially and update it gradually. A user can add a particular sport/activity to the wall/calendar, based upon the time constraints ,weather conditions and personal inclinations. Other users can join him or create new events. 
+
+
+## Developers
+
+### Ankita Singh
+![Ankita Singh](images/singh_ankita.jpg)
 
