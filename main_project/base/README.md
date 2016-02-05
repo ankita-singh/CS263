@@ -21,5 +21,5 @@ The plan is to include the basic functionalities initially and update it gradual
 ## Developers
 
 ### Ankita Singh
-![Ankita Singh](images/singh_ankita.jpg)
+![Ankita Singh](src/main/webapp/images/singh_ankita.jpg)
 
