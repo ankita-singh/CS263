@@ -1,5 +1,9 @@
-
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.google.appengine.api.users.User" %>
+<%@ page import="com.google.appengine.api.users.UserService" %>
+<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
+<%@ page import="java.util.List" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html lang="en">
 
 <head>
@@ -54,15 +58,24 @@
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
+                        <%
+                                UserService userService = UserServiceFactory.getUserService();
+                                User user = userService.getCurrentUser();
+                                if (user != null) {
+                                    pageContext.setAttribute("user", user);
+                        %>
                     <li class="page-scroll">
                         <a href="#portfolio">Pick your interests</a>
                     </li>
                     <li class="page-scroll">
                         <a href="#about">About</a>
                     </li>
-                    <li class="page-scroll">
-                        <a href="#contact">Contact</a>
+                    <li>
+                        <a class="page-scroll" href="<%= userService.createLogoutURL(request.getRequestURI()) %>">LogOut</a>
                     </li>
+                        <%
+                                }
+                        %>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -78,8 +91,18 @@
                     <img class="img-responsive" src="images/profile.png" alt="">
                     <div class="intro-text">
                         <span class="name">Lets Play!</span>
-                        <hr class="star-light">
-                        <span class="skills">...</span>
+                        
+                        <%
+                        if(user ==null){
+                        
+                        %>
+                        <a href="<%= userService.createLoginURL(request.getRequestURI()) %>" class="btn btn-lg btn-outline">
+                        </i>Login
+                        </a>
+                        <%
+                            }
+                        %>
+                        
                     </div>
                 </div>
             </div>
@@ -87,6 +110,9 @@
     </header>
 
     <!-- Portfolio Grid Section -->
+    <%
+            if(user!=null){
+    %>
     <section id="portfolio">
         <div class="container">
             <div class="row">
@@ -518,6 +544,10 @@
             </div>
         </div>
     </div>
+
+    <%
+            }
+    %>
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
