@@ -68,7 +68,7 @@
                         <a href="#portfolio">Pick your interests</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#about">About</a>
+                        <a href="#about">Choose your time</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="<%= userService.createLogoutURL(request.getRequestURI()) %>">LogOut</a>
@@ -130,6 +130,7 @@
                             </div>
                         </div>
                         <img src="images/cabin.png" class="img-responsive" alt="">
+                        <input type="checkbox" class="checkbox" id="check1" />
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
@@ -140,6 +141,7 @@
                             </div>
                         </div>
                         <img src="images/cake.png" class="img-responsive" alt="">
+                        <input type="checkbox" class="checkbox" id="check1" />
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
@@ -150,6 +152,7 @@
                             </div>
                         </div>
                         <img src="images/circus.png" class="img-responsive" alt="">
+                        <input type="checkbox" class="checkbox" id="check1" />
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
@@ -160,6 +163,7 @@
                             </div>
                         </div>
                         <img src="images/game.png" class="img-responsive" alt="">
+                        <input type="checkbox" class="checkbox" id="check1" />
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
@@ -170,6 +174,7 @@
                             </div>
                         </div>
                         <img src="images/safe.png" class="img-responsive" alt="">
+                        <input type="checkbox" class="checkbox" id="check1" />
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
@@ -180,36 +185,62 @@
                             </div>
                         </div>
                         <img src="images/submarine.png" class="img-responsive" alt="">
+                        <input type="checkbox" class="checkbox" id="check1" />
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- Calendar Section -->
     <section class="success" id="about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>About</h2>
-                    <hr class="star-light">
+                    <h2>Choose your time!</h2>
+                    <hr class="star-primary">
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-lg-offset-2">
-                    <p>Our main idea is to help users adapt to a healthier lifestyle by peer to peer motivation. </p>
-                </div>
-                <div class="col-lg-4">
-                    <p>This application provides a platform for sports enthusiasts to collaborate and schedule various Sports/recreational events</p>
-                </div>
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <a href="#" class="btn btn-lg btn-outline">
-                        <i class="fa fa-download"></i> Find more!
+                <div class="col-lg-12 text-center">
+                    <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                        </div>
+                        <img src="images/cabin.png" class="img-responsive" alt="">
                     </a>
                 </div>
             </div>
+
+
+    <!--Calendar End-->
         </div>
     </section>
+
+
+
+<!-- Location Section -->
+    <section id="portfolio">>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Find your team!</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    
+                        
+                        <img src="images/map.png" width="400" height="400"class="img-responsive " alt="" margin="auto">
+                    
+                </div>
+            </div>
+
+
+    <!--Location End-->
+        </div>
+    </section>
+
 
     <!-- Contact Section -->
     <section id="contact">
