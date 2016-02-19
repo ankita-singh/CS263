@@ -4,6 +4,10 @@
 <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
 <%@ page import="java.util.List" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -14,16 +18,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>LetsPlay!</title>
+    <title>Let's Play</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
-    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="stylesheets/freelancer.css" rel="stylesheet">
+    <link href="css/freelancer.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
@@ -33,6 +37,19 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <style type="text/css">
+
+    .state-icon {
+        left: -5px;
+    }
+    .list-group-item-primary {
+        color: rgb(255, 255, 255);
+        background-color: rgb(66, 139, 202);
+    }
+
+    </style>
+
 
 </head>
 
@@ -49,7 +66,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                Lets Play!
+                <a class="navbar-brand" href="#page-top">Let's Play!</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -58,24 +75,33 @@
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>
-                        <%
-                                UserService userService = UserServiceFactory.getUserService();
-                                User user = userService.getCurrentUser();
-                                if (user != null) {
-                                    pageContext.setAttribute("user", user);
-                        %>
+                    <%
+                            UserService userService = UserServiceFactory.getUserService();
+                            User user = userService.getCurrentUser();
+                            if (user != null) {
+                                pageContext.setAttribute("user", user);
+                    %>
                     <li class="page-scroll">
-                        <a href="#portfolio">Pick your interests</a>
+                        <a href="#contact">Pick your Interests</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#about">Choose your time</a>
+                        <a href="#about">Activities</a>
                     </li>
-                    <li>
-                        <a class="page-scroll" href="<%= userService.createLogoutURL(request.getRequestURI()) %>">LogOut</a>
+                    <li class="page-scroll">
+                        <a href="#portfolio">Lets Start</a>
+                    </li>
+                    <li >
+                            
+                         
+                         <a href="<%= userService.createLogoutURL(request.getRequestURI()) %>" class="btn btn-lg btn-outline" style="width:150px;height:50px;top:-20px; right:-50px; position:relative; padding-bottom:1cm; text-align:center;"  >
+                            </i>Logout
+                        </a>
                     </li>
                         <%
-                                }
+                            }
                         %>
+                    
+                    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -88,36 +114,96 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <img class="img-responsive" src="images/profile.png" alt="">
+                    <img class="img-responsive" src="img/profile.png" alt="">
                     <div class="intro-text">
-                        <span class="name">Lets Play!</span>
+                        <span class="name">Get Set Go!</span>
+                        <hr class="star-light">
                         
                         <%
                         if(user ==null){
                         
-                        %>
+                    %>
                         <a href="<%= userService.createLoginURL(request.getRequestURI()) %>" class="btn btn-lg btn-outline">
-                        </i>Login
+                         </i>Login
                         </a>
-                        <%
-                            }
-                        %>
-                        
+                    <%
+                        }
+                    %>
+                    </div>
+                    <div style= "padding-top: 0.5cm;">
+                        <span class="skills" style= "font-size: 250%">Let's Be Fit!!</span>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Portfolio Grid Section -->
-    <%
+
+     <%
             if(user!=null){
-    %>
+     %>
+    <!-- Pick your interests -->
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Pick your Interests</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                    <ul class="list-group checked-list-box" style="max-height: 300px;overflow: auto;">
+                      <li class="list-group-item" data-style="button">Up for a walk?</li>
+                      <li class="list-group-item" data-style="button" data-color="success">Basketball!!</li>
+                      <li class="list-group-item" data-style="button" data-color="info">Cricket</li>
+                      <li class="list-group-item" data-style="button" data-color="warning">Lets Swim</li>
+                      <li class="list-group-item" data-style="button" data-color="danger">What about some Soccer</li>
+                      <li class="list-group-item" data-style="button" data-color="warning">Ping Pong</li>
+                      <li class="list-group-item" data-style="button" data-color="warning">Gyming</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- View Activities -->
+    <section class="success" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>View Nearby Activities</h2>
+                    <hr class="star-light">
+                </div>
+            </div>
+            <div class="row">
+            <div id = "portfolio">
+                <div class="col-sm-4 portfolio-item" "col-lg-offset-4">
+                    <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
+                        <div class="caption" style="position:relative;left:400px;">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/portfolio/circus.png" class="img-responsive img-centered" alt="" style="position:relative;left:400px;">
+                    </a>
+                </div>
+            </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
     <section id="portfolio">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>Pick your interests</h2>
+                    <h2>Let's Start!</h2>
                     <hr class="star-primary">
                 </div>
             </div>
@@ -129,8 +215,7 @@
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="images/cabin.png" class="img-responsive" alt="">
-                        <input type="checkbox" class="checkbox" id="check1" />
+                        <img src="img/portfolio/cabin.png" class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
@@ -140,8 +225,7 @@
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="images/cake.png" class="img-responsive" alt="">
-                        <input type="checkbox" class="checkbox" id="check1" />
+                        <img src="img/portfolio/cake.png" class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
@@ -151,8 +235,7 @@
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="images/circus.png" class="img-responsive" alt="">
-                        <input type="checkbox" class="checkbox" id="check1" />
+                        <img src="img/portfolio/circus.png" class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
@@ -162,8 +245,7 @@
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="images/game.png" class="img-responsive" alt="">
-                        <input type="checkbox" class="checkbox" id="check1" />
+                        <img src="img/portfolio/game.png" class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
@@ -173,8 +255,7 @@
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="images/safe.png" class="img-responsive" alt="">
-                        <input type="checkbox" class="checkbox" id="check1" />
+                        <img src="img/portfolio/safe.png" class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
@@ -184,131 +265,24 @@
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="images/submarine.png" class="img-responsive" alt="">
-                        <input type="checkbox" class="checkbox" id="check1" />
+                        <img src="img/portfolio/submarine.png" class="img-responsive" alt="">
                     </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Calendar Section -->
-    <section class="success" id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Choose your time!</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                        </div>
-                        <img src="images/cabin.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-            </div>
-
-
-    <!--Calendar End-->
-        </div>
-    </section>
-
-
-
-<!-- Location Section -->
-    <section id="portfolio">>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Find your team!</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    
-                        
-                        <img src="images/map.png" width="400" height="400"class="img-responsive " alt="" margin="auto">
-                    
-                </div>
-            </div>
-
-
-    <!--Location End-->
-        </div>
-    </section>
-
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Contact Me</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <form name="sentMessage" id="contactForm" novalidate>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Name</label>
-                                <input type="text" class="form-control" placeholder="Name" id="name" required data-validation-required-message="Please enter your name.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Email Address</label>
-                                <input type="email" class="form-control" placeholder="Email Address" id="email" required data-validation-required-message="Please enter your email address.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Phone Number</label>
-                                <input type="tel" class="form-control" placeholder="Phone Number" id="phone" required data-validation-required-message="Please enter your phone number.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Message</label>
-                                <textarea rows="5" class="form-control" placeholder="Message" id="message" required data-validation-required-message="Please enter a message."></textarea>
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <br>
-                        <div id="success"></div>
-                        <div class="row">
-                            <div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg">Send</button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-	
     <footer class="text-center">
-        <div class="footer-above">
+        <!--<div class="footer-above">
             <div class="container">
                 <div class="row">
                     <div class="footer-col col-md-4">
-                        <h3>abcd</h3>
-                        <p>a b c d<br>a b c d </p>
+                        <h3>Location</h3>
+                        <p>3481 Melrose Place<br>Beverly Hills, CA 90210</p>
                     </div>
                     <div class="footer-col col-md-4">
-                        <h3>Around the Web application</h3>
+                        <h3>Around the Web</h3>
                         <ul class="list-inline">
                             <li>
                                 <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
@@ -328,22 +302,24 @@
                         </ul>
                     </div>
                     <div class="footer-col col-md-4">
-                        <h3>About</h3>
-                        <p>more info <a href="index.jsp"> Some infor</a>.</p>
+                        <h3>About Freelancer</h3>
+                        <p>Freelance is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="footer-below">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        Copyright &copy; Website 2016
+
+                        Copyright &copy; Ucsb CS263
+                        <hr class="star-primary">
                     </div>
                 </div>
             </div>
         </div>
-    </footer>
+    </footer> 
 
     <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
     <div class="scroll-top page-scroll visible-xs visible-sm">
@@ -361,13 +337,13 @@
                     </div>
                 </div>
             </div>
-            <!--<div class="container">
+            <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <div class="modal-body">
                             <h2>Project Title</h2>
                             <hr class="star-primary">
-                            <img src="images/cabin.png" class="img-responsive img-centered" alt="">
+                            <img src="img/portfolio/cabin.png" class="img-responsive img-centered" alt="">
                             <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
                             <ul class="list-inline item-details">
                                 <li>Client:
@@ -387,7 +363,7 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
     <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
@@ -404,9 +380,9 @@
                         <div class="modal-body">
                             <h2>Project Title</h2>
                             <hr class="star-primary">
-                            <img src="images/cake.png" class="img-responsive img-centered" alt="">
+                            <img src="img/portfolio/cake.png" class="img-responsive img-centered" alt="">
                             <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <!--<ul class="list-inline item-details">
+                            <ul class="list-inline item-details">
                                 <li>Client:
                                     <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
                                     </strong>
@@ -419,7 +395,7 @@
                                     <strong><a href="http://startbootstrap.com">Web Development</a>
                                     </strong>
                                 </li>
-                            </ul>-->
+                            </ul>
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
                         </div>
                     </div>
@@ -441,7 +417,7 @@
                         <div class="modal-body">
                             <h2>Project Title</h2>
                             <hr class="star-primary">
-                            <img src="images/circus.png" class="img-responsive img-centered" alt="">
+                            <img src="img/portfolio/circus.png" class="img-responsive img-centered" alt="">
                             <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
                             <ul class="list-inline item-details">
                                 <li>Client:
@@ -475,25 +451,41 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
+                        <div class="modal-body" style="overflow-y: auto;">
+                            <h2>Activities around you!</h2>
                             <hr class="star-primary">
-                            <img src="images/game.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
+                            <img src="img/portfolio/circus.png" class="img-responsive img-centered" alt="" height="100" width="200">
+                            <table class="table table-striped table-hover" style="text-align: center;">
+                            <tr>
+                                 <th style="text-align: center;">Activity</th>
+                                 <th style="text-align: center;">Owner</th>
+                                 <th style="text-align: center;">Time</th>
+                                 <th style="text-align: center;">Join</th>
+                            </tr>
+                            <tr>
+                                 <td>BasketBall</td>
+                                 <td>Joey</td>
+                                 <td>Saturday 11am-1pm</td>
+                                 <td><button type="button" class="btn btn-success">Going</button>
+                            </tr>
+                            <tr>
+                                 <td>BasketBall</td>
+                                 <td>Chandler</td>
+                                 <td>Saturday 11am-1pm</td>
+                                 <td><button type="button" class="btn btn-success">Going</button>
+                            </tr>
+                            <tr>
+                                 <td>BasketBall</td>
+                                 <td>Ross</td>
+                                 <td>Saturday 11am-1pm</td>
+                                 <td><button type="button" class="btn btn-success">Going</button>
+                            </tr>
+                            
+
+                            </table>
+
+
+
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
                         </div>
                     </div>
@@ -517,7 +509,7 @@
                             <hr class="star-primary">
                             <img src="img/portfolio/safe.png" class="img-responsive img-centered" alt="">
                             <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <!--<ul class="list-inline item-details">
+                            <ul class="list-inline item-details">
                                 <li>Client:
                                     <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
                                     </strong>
@@ -530,7 +522,7 @@
                                     <strong><a href="http://startbootstrap.com">Web Development</a>
                                     </strong>
                                 </li>
-                            </ul>-->
+                            </ul>
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
                         </div>
                     </div>
@@ -552,9 +544,9 @@
                         <div class="modal-body">
                             <h2>Project Title</h2>
                             <hr class="star-primary">
-                            <img src="images/submarine.png" class="img-responsive img-centered" alt="">
+                            <img src="img/portfolio/submarine.png" class="img-responsive img-centered" alt="">
                             <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <!--<ul class="list-inline item-details">
+                            <ul class="list-inline item-details">
                                 <li>Client:
                                     <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
                                     </strong>
@@ -567,7 +559,7 @@
                                     <strong><a href="http://startbootstrap.com">Web Development</a>
                                     </strong>
                                 </li>
-                            </ul>-->
+                            </ul>
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
                         </div>
                     </div>
@@ -576,10 +568,9 @@
         </div>
     </div>
 
-    <%
+     <%
             }
-    %>
-
+     %>
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
@@ -597,6 +588,9 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/freelancer.js"></script>
+
+    <!--  Custom js for the list -->
+    <script src="js/myscripts.js"></script>
 
 </body>
 
