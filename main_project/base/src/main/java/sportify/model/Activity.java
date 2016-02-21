@@ -1,0 +1,50 @@
+package sportify.model;
+
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import java.util.Date;
+
+import java.io.Serializable;
+
+@XmlRootElement
+public class Activity implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	String act_id;
+	String name;
+	String description;
+
+	public Activity(){
+		
+	}
+
+	public String getAct_id() {
+		return act_id;
+	}
+	@XmlElement
+	public void setAct_id(String act_id) {
+		this.act_id = act_id;
+	}
+	public String getName() {
+		return name;
+	}
+	@XmlElement
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getDescription() {
+		return description;
+	}
+	@XmlElement
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+}
