@@ -31,12 +31,12 @@
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+      <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+      <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
+     <!-- <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
+      <script type="text/javascript" src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+      <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />-->
+      <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 
     <style type="text/css">
 
@@ -85,7 +85,7 @@
                         <a href="#contact">Pick your Interests</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#about">Activities</a>
+                        <a href="#about">Events</a>
                     </li>
                     <li class="page-scroll">
                         <a href="#portfolio">Lets Start</a>
@@ -152,10 +152,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-lg-8 col-lg-offset-2" style="text-align:center;">
                     <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
                     <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <ul class="list-group checked-list-box" style="max-height: 300px;overflow: auto;">
+                    <ul class="list-group checked-list-box" style="max-height: 300px;overflow: auto;text-align:left;">
                       <li class="list-group-item" data-style="button">Up for a walk?</li>
                       <li class="list-group-item" data-style="button" data-color="success">Basketball!!</li>
                       <li class="list-group-item" data-style="button" data-color="info">Cricket</li>
@@ -164,6 +164,7 @@
                       <li class="list-group-item" data-style="button" data-color="warning">Ping Pong</li>
                       <li class="list-group-item" data-style="button" data-color="warning">Gyming</li>
                     </ul>
+                    <button type="button" class="btn btn-success" >Save</button>
                 </div>
 
             </div>
@@ -176,7 +177,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>View Nearby Activities</h2>
+                    <h2>View Nearby Events</h2>
                     <hr class="star-light">
                 </div>
             </div>
@@ -208,106 +209,62 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4 portfolio-item">
+                <div class="col-sm-6 portfolio-item">
                     <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="img/portfolio/cabin.png" class="img-responsive" alt="">
+                        <h3 style="text-align:center;">Your Events!</h3>
+                        <img src="img/portfolio/safe.png" class="img-responsive" alt="">
                     </a>
                 </div>
-                <div class="col-sm-4 portfolio-item">
+                <div class="col-sm-6 portfolio-item">
                     <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
+                        <h3 style="text-align:center;">Create New Event!</h3>
                         <img src="img/portfolio/cake.png" class="img-responsive" alt="">
                     </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
+                </div>       
+            </div>
+
+            <div class="row">
+               
+                <div class="col-sm-6 portfolio-item">
                     <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="img/portfolio/circus.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/game.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal5" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="img/portfolio/safe.png" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal6" class="portfolio-link" data-toggle="modal">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
-                            </div>
-                        </div>
+                        <h3 style="text-align:center;">Upcoming Events!</h3>
                         <img src="img/portfolio/submarine.png" class="img-responsive" alt="">
                     </a>
-                </div>
+                </div> 
+
+                <div class="col-sm-6 portfolio-item">
+                    <a href="#newActivity" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <h3 style="text-align:center;">New Activity!</h3>
+                        <img src="img/portfolio/game.png" class="img-responsive" alt="">
+                    </a>
+                </div>             
             </div>
+
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="text-center">
-        <!--<div class="footer-above">
-            <div class="container">
-                <div class="row">
-                    <div class="footer-col col-md-4">
-                        <h3>Location</h3>
-                        <p>3481 Melrose Place<br>Beverly Hills, CA 90210</p>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>Around the Web</h3>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>About Freelancer</h3>
-                        <p>Freelance is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <div class="footer-below">
             <div class="container">
                 <div class="row">
@@ -341,24 +298,34 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <div class="modal-body">
-                            <h2>Project Title</h2>
+                            <h2>Your Events</h2>
                             <hr class="star-primary">
-                            <img src="img/portfolio/cabin.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
+                            <img src="img/portfolio/safe.png" class="img-responsive img-centered" alt="" height="100" width="200">
+                            <table class="table table-striped table-hover" style="text-align: center;">
+                            <tr>
+                                 <th style="text-align: center;">Activity</th>
+                                 <th style="text-align: center;">Time</th>
+                                 <th style="text-align: center;">  </th>
+                            </tr>
+                            <tr>
+                                 <td>BasketBall</td>
+                                 <td>Saturday 11am-1pm</td>
+                                 <td><button type="button" class="btn btn-danger">Delete</button>
+                            </tr>
+                            <tr>
+                                 <td>BasketBall</td>
+                                 <td>Saturday 11am-1pm</td>
+                                 <td><button type="button" class="btn btn-danger">Delete</button>
+                            </tr>
+                            <tr>
+                                 <td>BasketBall</td>
+                                 <td>Saturday 11am-1pm</td>
+                                 <td><button type="button" class="btn btn-danger">Delete</button>
+                            </tr>
+                            
+
+                            </table>
+
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
                         </div>
                     </div>
@@ -366,7 +333,7 @@
             </div>
         </div>
     </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true" data-focus-on="input:first" style="display: none;" >
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
@@ -378,25 +345,41 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <div class="modal-body">
-                            <h2>Project Title</h2>
+                            <h2>Create New Event </h2>
                             <hr class="star-primary">
-                            <img src="img/portfolio/cake.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                            <img src="img/portfolio/cake.png" class="img-responsive img-centered" alt="" height="100" width="200">
+
+                             <form>
+                                  <div class="form-group">
+                                    <label for="activity">Pick activity!</label>
+                                    <select class="form-control" id="activity" placeholder="Activity"> 
+                                        <option value="football">Football</option>
+                                        <option value="basketball">Basketball</option>
+                                    </select>
+                                </div>
+                                  <div class="form-group">
+                                    <label for="day">Pick the day!</label>
+                                     <select class="form-control" id="day" placeholder="Day"> 
+                                        <option value="sunday">Sunday</option>
+                                        <option value="monday">Monday</option>
+                                        <option value="tuesday">Tuesday</option>
+                                        <option value="wednesday">Wednesday</option>
+                                        <option value="thursday">Thursday</option>
+                                        <option value="friday">Friday</option>
+                                        <option value="saturday">Saturday</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="startTime">Pick the start time!</label>
+                                    <input type="datetime" class="form-control" id="startTime" placeholder="Starting at...">
+                                   
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="startTime">Pick the end time!</label>
+                                    <input type="datetime" class="form-control" id="endTime" placeholder="Ending at...">
+                                  </div>
+                                  <input type="submit" class="btn btn-success" value="Create">
+                                </form>
                         </div>
                     </div>
                 </div>
@@ -415,25 +398,72 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <div class="modal-body">
-                            <h2>Project Title</h2>
+                            <h2>Upcoming Events</h2>
                             <hr class="star-primary">
-                            <img src="img/portfolio/circus.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
+                            <img src="img/portfolio/submarine.png" class="img-responsive img-centered" alt="" height="100" width="200">
+                            <table class="table table-striped table-hover" style="text-align: center;">
+                            <tr>
+                                 <th style="text-align: center;">Activity</th>
+                                 <th style="text-align: center;">Owner</th>
+                                 <th style="text-align: center;">Time</th>
+                                 <th style="text-align: center;">Participants</th>
+                                 <th style="text-align: center;">  </th>
+                            </tr>
+                            <tr>
+                                 <td>BasketBall</td>
+                                 <td>Joey</td>
+                                 <td>Saturday 11am-1pm</td>
+                                 <td>Chandler, Ross</td>
+                                 <td><button type="button" class="btn btn-warning">Not Interested</button>
+                            </tr>
+                              <tr>
+                                 <td>BasketBall</td>
+                                 <td>Joey</td>
+                                 <td>Saturday 11am-1pm</td>
+                                 <td>Chandler, Ross</td>
+                                 <td><button type="button" class="btn btn-warning">Not Interested</button>
+                            </tr>
+                           <tr>
+                                 <td>BasketBall</td>
+                                 <td>Joey</td>
+                                 <td>Saturday 11am-1pm</td>
+                                 <td>Chandler, Ross</td>
+                                 <td><button type="button" class="btn btn-warning">Not Interested</button>
+                            </tr>
+
+                            </table>
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portfolio-modal modal fade" id="newActivity" tabindex="-1" role="dialog" aria-hidden="true" data-focus-on="input:first" >
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                        <h2>Create a new Activity</h2>
+                            <hr class="star-primary">
+                           <form>
+                                  <div class="form-group">
+                                    <label for="activityName">Activity Name</label>
+                                    <input type="text" class="form-control" id="activity" placeholder="Activity">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="day">Description</label>
+                                    <input type="textarea" class="form-control" id="day" placeholder="Day">
+                                  </div>
+                                  <button type="button" class="btn btn-success" data-dismiss="modal"> Create Activity</button>
+                                </form>
                         </div>
                     </div>
                 </div>
@@ -493,82 +523,9 @@
             </div>
         </div>
     </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="img/portfolio/safe.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Project Title</h2>
-                            <hr class="star-primary">
-                            <img src="img/portfolio/submarine.png" class="img-responsive img-centered" alt="">
-                            <p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-                            <ul class="list-inline item-details">
-                                <li>Client:
-                                    <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-                                    </strong>
-                                </li>
-                                <li>Date:
-                                    <strong><a href="http://startbootstrap.com">April 2014</a>
-                                    </strong>
-                                </li>
-                                <li>Service:
-                                    <strong><a href="http://startbootstrap.com">Web Development</a>
-                                    </strong>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
-     <%
+    <%
             }
      %>
     <!-- jQuery -->
@@ -591,6 +548,8 @@
 
     <!--  Custom js for the list -->
     <script src="js/myscripts.js"></script>
+
+    <script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>
 
 </body>
 
