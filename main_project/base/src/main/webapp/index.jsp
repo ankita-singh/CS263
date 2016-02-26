@@ -343,17 +343,17 @@
                             <hr class="star-primary">
                             <img src="img/portfolio/cake.png" class="img-responsive img-centered" alt="" height="100" width="200">
 
-                            <form action="<%= "/rest/event" %>" method="POST">
+                            <form id="form1">
                                   <div class="form-group">
                                     <label for="activity">Pick activity!</label>
-                                    <select class="form-control" name="activity" placeholder="Activity"> 
+                                    <select class="form-control" id="activity" placeholder="Activity"> 
                                         <option value="football">Football</option>
                                         <option value="basketball">Basketball</option>
                                     </select>
                                 </div>
                                   <div class="form-group">
                                     <label for="day">Pick the day!</label>
-                                     <select class="form-control" name="day" placeholder="Day"> 
+                                     <select class="form-control" id="day" placeholder="Day"> 
                                         <option value="1">Sunday</option>
                                         <option value="2">Monday</option>
                                         <option value="3">Tuesday</option>
@@ -365,14 +365,14 @@
                                   </div>
                                   <div class="form-group">
                                     <label for="startTime">Pick the start time!</label>
-                                    <input type="text" class="form-control" name="s_hour" placeholder="Starting hour...">
-                                    <input type="text" class="form-control" name="s_min" placeholder="Starting min...">
+                                    <input type="text" class="form-control" id="s_hour" placeholder="Starting hour...">
+                                    <input type="text" class="form-control" id="s_min" placeholder="Starting min...">
                                    
                                   </div>
                                   <div class="form-group">
                                     <label for="startTime">Pick the end time!</label>
-                                    <input type="text" class="form-control" name="e_hour" placeholder="Ending hour...">
-                                    <input type="text" class="form-control" name="e_min" placeholder="Ending hour...">
+                                    <input type="text" class="form-control" id="e_hour" placeholder="Ending hour...">
+                                    <input type="text" class="form-control" id="e_min" placeholder="Ending hour...">
                                   </div>
 
 
@@ -386,7 +386,10 @@
 
 
 
-                                  <input type="submit" class="btn btn-success" value="Create">
+                                 <!--  <input type="submit" class="btn btn-success" value="Create"> -->
+                                  <button onclick="submitData()" class="btn btn-success">Create</button>
+
+
                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
                                 </form>
                         </div>
@@ -554,11 +557,47 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/freelancer.js"></script>
+    <script src="js/bootbox.min.js"></script>
 
     <!--  Custom js for the list -->
     <script src="js/myscripts.js"></script>
 
     <!---<script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>-->
+
+
+    <script type="text/javascript">
+
+        
+
+function submitData(){
+        
+        var eventData = {};
+        eventData["activity"] = $('#activity')[0].value;
+        eventData["s_hour"] = $('#s_hour')[0].value;
+        eventData["s_min"] = $('#s_min')[0].value;
+        eventData["e_hour"] = $('#e_hour')[0].value;
+        eventData["e_min"] = $('#e_min')[0].value;
+        eventData["day"] = $('#day')[0].value;
+        console.log(eventData);
+      
+        
+        
+        $.ajax({
+              url: "/rest/event",
+              type: "POST",
+              data: JSON.stringify(eventData),
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              success: function(){
+                  alert("Your lecture has been created");
+              }
+            })
+    
+    }
+
+
+    </script>
+
 
 </body>
 

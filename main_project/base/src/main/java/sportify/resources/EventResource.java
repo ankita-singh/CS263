@@ -40,11 +40,7 @@ public class EventResource {
 	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	UserService userService = UserServiceFactory.getUserService();
 	
-	
-	
-	
-	@POST
-	//@Consumes("application/json")
+	/*@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void createEvent(@FormParam("s_hour") int s_hour,
 							@FormParam("s_min") int s_min,
@@ -66,8 +62,25 @@ public class EventResource {
 		eventEntity.setProperty("owner", userService.getCurrentUser().getUserId());;
 		datastore.put(eventEntity);
 		
-	}
+	}*/
 	
+
+	@POST
+	@Consumes("application/json")
+	public void createEvent(Event event) {
+		
+
+		Entity eventEntity = new Entity("EVENT");
+		eventEntity.setProperty("s_hour", event.getS_hour());
+		eventEntity.setProperty("s_min", event.getS_min());
+		eventEntity.setProperty("e_hour", event.getE_hour());
+		eventEntity.setProperty("e_min", event.getE_min());
+		eventEntity.setProperty("day", event.getDay());
+		eventEntity.setProperty("activity", event.getActivity());
+		eventEntity.setProperty("owner", userService.getCurrentUser().getUserId());;
+		datastore.put(eventEntity);
+		
+	}
 	
 	
 }
