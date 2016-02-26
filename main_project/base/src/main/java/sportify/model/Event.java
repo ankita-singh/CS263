@@ -11,13 +11,12 @@ import java.util.Date;
 
 @XmlRootElement
 public class Event {
-	long event_id;
 	int day;
 	int s_hour;
 	int s_min;
 	int e_hour;
 	int e_min;
-	String activityId;
+	String activity;
 	String owner;
 	
 
@@ -62,19 +61,12 @@ public class Event {
 		this.e_min = e_min;
 	}
 	
-	public long getEvent_id() {
-		return event_id;
+	public String getActivity() {
+		return activity;
 	}
 	@XmlElement
-	public void setEvent_id(long event_id) {
-		event_id = event_id;
-	}
-	public String getActivityId() {
-		return activityId;
-	}
-	@XmlElement
-	public void setActivityId(String activityId) {
-		this.activityId = activityId;
+	public void setActivityId(String activity) {
+		this.activity = activity;
 	}
 	public String getOwner() {
 		return owner;

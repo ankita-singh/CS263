@@ -343,36 +343,51 @@
                             <hr class="star-primary">
                             <img src="img/portfolio/cake.png" class="img-responsive img-centered" alt="" height="100" width="200">
 
-                             <form>
+                            <form action="<%= "/rest/event" %>" method="POST">
                                   <div class="form-group">
                                     <label for="activity">Pick activity!</label>
-                                    <select class="form-control" id="activity" placeholder="Activity"> 
+                                    <select class="form-control" name="activity" placeholder="Activity"> 
                                         <option value="football">Football</option>
                                         <option value="basketball">Basketball</option>
                                     </select>
                                 </div>
                                   <div class="form-group">
                                     <label for="day">Pick the day!</label>
-                                     <select class="form-control" id="day" placeholder="Day"> 
-                                        <option value="sunday">Sunday</option>
-                                        <option value="monday">Monday</option>
-                                        <option value="tuesday">Tuesday</option>
-                                        <option value="wednesday">Wednesday</option>
-                                        <option value="thursday">Thursday</option>
-                                        <option value="friday">Friday</option>
-                                        <option value="saturday">Saturday</option>
+                                     <select class="form-control" name="day" placeholder="Day"> 
+                                        <option value="1">Sunday</option>
+                                        <option value="2">Monday</option>
+                                        <option value="3">Tuesday</option>
+                                        <option value="4">Wednesday</option>
+                                        <option value="5">Thursday</option>
+                                        <option value="6">Friday</option>
+                                        <option value="7">Saturday</option>
                                     </select>
                                   </div>
                                   <div class="form-group">
                                     <label for="startTime">Pick the start time!</label>
-                                    <input type="datetime" class="form-control" id="startTime" placeholder="Starting at...">
+                                    <input type="text" class="form-control" name="s_hour" placeholder="Starting hour...">
+                                    <input type="text" class="form-control" name="s_min" placeholder="Starting min...">
                                    
                                   </div>
                                   <div class="form-group">
                                     <label for="startTime">Pick the end time!</label>
-                                    <input type="datetime" class="form-control" id="endTime" placeholder="Ending at...">
+                                    <input type="text" class="form-control" name="e_hour" placeholder="Ending hour...">
+                                    <input type="text" class="form-control" name="e_min" placeholder="Ending hour...">
                                   </div>
+
+
+                                      <!-- <label> s_hour:</label><input type="text" name ="s_hour">
+                                      <label> s_min:</label><input type="text" name="s_min">
+                                      <label> e_hour:</label><input type="text" name="e_hour">
+                                      <label> e_min:</label><input type="text" name="e_min">
+                                      <label> day:</label><input type="text" name="day">
+                                      <label> activity:</label><input type="text" name="activity">
+ -->
+
+
+
                                   <input type="submit" class="btn btn-success" value="Create">
+                                   <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
                                 </form>
                         </div>
                     </div>
@@ -543,7 +558,7 @@
     <!--  Custom js for the list -->
     <script src="js/myscripts.js"></script>
 
-    <script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>
+    <!---<script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>-->
 
 </body>
 

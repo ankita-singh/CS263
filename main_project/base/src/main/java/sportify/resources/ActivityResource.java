@@ -21,15 +21,14 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
-import sportify.dao.ActivityDao;
-import sportify.dao.EventDao;
+
 import sportify.model.Event;
 import sportify.model.Activity;
 
 @Path("/activity")
 public class ActivityResource {
 	
-	private ActivityDao activityDao;
+	/*private ActivityDao activityDao;
 	private EventDao eventDao;
 	
 	
@@ -45,6 +44,6 @@ public class ActivityResource {
 	public void createActivity(Activity activity){
 		activityDao.addActivity(activity);
 	}
-	
+	*/
 
 }

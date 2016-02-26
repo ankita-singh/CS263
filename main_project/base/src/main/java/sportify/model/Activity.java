@@ -17,7 +17,6 @@ public class Activity implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	String act_id;
 	String name;
 	String description;
 
@@ -25,13 +24,6 @@ public class Activity implements Serializable{
 		
 	}
 
-	public String getAct_id() {
-		return act_id;
-	}
-	@XmlElement
-	public void setAct_id(String act_id) {
-		this.act_id = act_id;
-	}
 	public String getName() {
 		return name;
 	}
