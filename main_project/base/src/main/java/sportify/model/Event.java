@@ -18,6 +18,7 @@ public class Event {
 	int e_min;
 	String activity;
 	String owner;
+	String ownerId;
 	
 
 	public Event(){
@@ -65,7 +66,7 @@ public class Event {
 		return activity;
 	}
 	@XmlElement
-	public void setActivityId(String activity) {
+	public void setActivity(String activity) {
 		this.activity = activity;
 	}
 	public String getOwner() {
@@ -74,6 +75,13 @@ public class Event {
 	@XmlElement
 	public void setOwner(String owner) {
 		this.owner = owner;
+	}
+	public String getOwnerId() {
+		return ownerId;
+	}
+	@XmlElement
+	public void setOwnerId(String ownerId) {
+		this.ownerId = ownerId;
 	}
 	
 }	

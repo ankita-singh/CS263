@@ -39,8 +39,88 @@ public class EventResource {
 
 	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	UserService userService = UserServiceFactory.getUserService();
+
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Event> getEvent()
+		{
+		
+		
+			ArrayList<Event> events = new ArrayList<Event>();
+			Event event;
+			Query q = new Query("EVENT");
+			PreparedQuery pq = datastore.prepare(q);
+			for (Entity eventEntity : pq.asIterable()) {
+				event = new Event();
+			
+				event.setS_hour(((Long)eventEntity.getProperty("s_hour")).intValue());
+				event.setS_min(((Long)eventEntity.getProperty("s_min")).intValue());				
+				event.setE_hour(((Long)eventEntity.getProperty("e_hour")).intValue());
+				event.setE_min(((Long)eventEntity.getProperty("e_min")).intValue());				
+				event.setOwner((String)eventEntity.getProperty("owner"));
+				event.setOwnerId((String)eventEntity.getProperty("ownerId"));
+				event.setActivity((String)eventEntity.getProperty("activity"));
+				events.add(event);
+			
+		}
+		return events;	
+	}
+
+
+	@GET
+	@Path("/byOwner")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Event> getEventbyOwner()
+		{
+		
+			ArrayList<Event> events = new ArrayList<Event>();
+			if(userService.getCurrentUser()!=null)
+
+			{
+				Event event;
+				Filter byOwner = new FilterPredicate("ownerId", FilterOperator.EQUAL, userService.getCurrentUser().getUserId());
+        		Query q = new Query("EVENT").setFilter(byOwner);
+				PreparedQuery pq = datastore.prepare(q);
+				for (Entity eventEntity : pq.asIterable()) {
+					event = new Event();
+			
+				event.setS_hour(((Long)eventEntity.getProperty("s_hour")).intValue());
+				event.setS_min(((Long)eventEntity.getProperty("s_min")).intValue());				
+				event.setE_hour(((Long)eventEntity.getProperty("e_hour")).intValue());
+				event.setE_min(((Long)eventEntity.getProperty("e_min")).intValue());				
+				event.setOwner((String)eventEntity.getProperty("owner"));
+				event.setOwnerId((String)eventEntity.getProperty("ownerId"));
+				event.setActivity((String)eventEntity.getProperty("activity"));
+				events.add(event);
+			
+				}
+				
+			}
+			return events;	
+	}
 	
-	/*@POST
+
+	
+
+	@POST
+	@Consumes("application/json")
+	public void createEvent(Event event) {
+		
+
+		Entity eventEntity = new Entity("EVENT");
+		eventEntity.setProperty("s_hour", event.getS_hour());
+		eventEntity.setProperty("s_min", event.getS_min());
+		eventEntity.setProperty("e_hour", event.getE_hour());
+		eventEntity.setProperty("e_min", event.getE_min());
+		eventEntity.setProperty("day", event.getDay());
+		eventEntity.setProperty("activity", event.getActivity());
+		eventEntity.setProperty("owner", userService.getCurrentUser().getNickname());
+		eventEntity.setProperty("ownerId", userService.getCurrentUser().getUserId());
+		datastore.put(eventEntity);
+		
+	}
+		/*@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public void createEvent(@FormParam("s_hour") int s_hour,
 							@FormParam("s_min") int s_min,
@@ -64,23 +144,6 @@ public class EventResource {
 		
 	}*/
 	
-
-	@POST
-	@Consumes("application/json")
-	public void createEvent(Event event) {
-		
-
-		Entity eventEntity = new Entity("EVENT");
-		eventEntity.setProperty("s_hour", event.getS_hour());
-		eventEntity.setProperty("s_min", event.getS_min());
-		eventEntity.setProperty("e_hour", event.getE_hour());
-		eventEntity.setProperty("e_min", event.getE_min());
-		eventEntity.setProperty("day", event.getDay());
-		eventEntity.setProperty("activity", event.getActivity());
-		eventEntity.setProperty("owner", userService.getCurrentUser().getUserId());;
-		datastore.put(eventEntity);
-		
-	}
-	
 	
 }
+
