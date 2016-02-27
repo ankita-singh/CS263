@@ -28,8 +28,8 @@
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
 
     <style type="text/css">
@@ -193,7 +193,7 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Your Events -->
     <section id="portfolio">
         <div class="container">
             <div class="row">
@@ -279,7 +279,7 @@
         </a>
     </div>
 
-    <!-- Portfolio Modals -->
+    <!-- Events By User -->
     <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
@@ -295,26 +295,13 @@
                             <h2>Your Events</h2>
                             <hr class="star-primary">
                             <img src="img/portfolio/safe.png" class="img-responsive img-centered" alt="" height="100" width="200">
-                            <table class="table table-striped table-hover" style="text-align: center;">
-                            <tr>
-                                 <th style="text-align: center;">Activity</th>
-                                 <th style="text-align: center;">Time</th>
-                                 <th style="text-align: center;">  </th>
-                            </tr>
-                            <tr>
-                                 <td>BasketBall</td>
-                                 <td>Saturday 11am-1pm</td>
-                                 <td><button type="button" class="btn btn-danger">Delete</button>
-                            </tr>
-                            <tr>
-                                 <td>BasketBall</td>
-                                 <td>Saturday 11am-1pm</td>
-                                 <td><button type="button" class="btn btn-danger">Delete</button>
-                            </tr>
-                            <tr>
-                                 <td>BasketBall</td>
-                                 <td>Saturday 11am-1pm</td>
-                                 <td><button type="button" class="btn btn-danger">Delete</button>
+                            <table id= "eventByUser_table" class="table table-striped table-hover" style="text-align: left;">
+                              <tr>
+                                 <th >Activity</th>
+                                 <th >Day</th>
+                                 <th >StartTime</th>
+                                 <th >EndTime</th>
+
                             </tr>
                             
 
@@ -327,6 +314,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Create New Event -->
     <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true" data-focus-on="input:first" style="display: none;" >
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
@@ -374,19 +363,6 @@
                                     <input type="text" class="form-control" id="e_hour" placeholder="Ending hour...">
                                     <input type="text" class="form-control" id="e_min" placeholder="Ending hour...">
                                   </div>
-
-
-                                      <!-- <label> s_hour:</label><input type="text" name ="s_hour">
-                                      <label> s_min:</label><input type="text" name="s_min">
-                                      <label> e_hour:</label><input type="text" name="e_hour">
-                                      <label> e_min:</label><input type="text" name="e_min">
-                                      <label> day:</label><input type="text" name="day">
-                                      <label> activity:</label><input type="text" name="activity">
- -->
-
-
-
-                                 <!--  <input type="submit" class="btn btn-success" value="Create"> -->
                                   <button onclick="submitData()" class="btn btn-success">Create</button>
 
 
@@ -398,6 +374,8 @@
             </div>
         </div>
     </div>
+
+    <!-- upcoming events -->
     <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
@@ -451,6 +429,8 @@
             </div>
         </div>
     </div>
+
+    <!-- New Activity -->
     <div class="portfolio-modal modal fade" id="newActivity" tabindex="-1" role="dialog" aria-hidden="true" data-focus-on="input:first" >
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
@@ -482,6 +462,8 @@
             </div>
         </div>
     </div>
+
+    <!-- All events -->
     <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
@@ -497,30 +479,14 @@
                             <h2>Activities around you!</h2>
                             <hr class="star-primary">
                             <img src="img/portfolio/circus.png" class="img-responsive img-centered" alt="" height="100" width="200">
-                            <table class="table table-striped table-hover" style="text-align: center;">
+                            <table id = "event_table" class="table table-striped table-hover" style="text-align: left;">
                             <tr>
-                                 <th style="text-align: center;">Activity</th>
-                                 <th style="text-align: center;">Owner</th>
-                                 <th style="text-align: center;">Time</th>
-                                 <th style="text-align: center;">Join</th>
-                            </tr>
-                            <tr>
-                                 <td>BasketBall</td>
-                                 <td>Joey</td>
-                                 <td>Saturday 11am-1pm</td>
-                                 <td><button type="button" class="btn btn-success">Going</button>
-                            </tr>
-                            <tr>
-                                 <td>BasketBall</td>
-                                 <td>Chandler</td>
-                                 <td>Saturday 11am-1pm</td>
-                                 <td><button type="button" class="btn btn-success">Going</button>
-                            </tr>
-                            <tr>
-                                 <td>BasketBall</td>
-                                 <td>Ross</td>
-                                 <td>Saturday 11am-1pm</td>
-                                 <td><button type="button" class="btn btn-success">Going</button>
+                                 <th >Activity</th>
+                                 <th >Day</th>
+                                 <th >Owner</th>
+                                 <th >StartTime</th>
+                                 <th >EndTime</th>
+
                             </tr>
                             
 
@@ -547,7 +513,7 @@
     <script src="js/bootstrap.min.js"></script>
 
     <!-- Plugin JavaScript -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script src="js/classie.js"></script>
     <script src="js/cbpAnimatedHeader.js"></script>
 
@@ -595,6 +561,68 @@ function submitData(){
     
     }
 
+$(document).ready(function() {
+  
+
+   
+        $.ajax({
+
+            url: "https://"+window.location.host+"/rest/event/",
+            type:'GET',
+            dataType: "json",
+            success: function (data) {
+
+            var i;
+            for(i=0;i<data.length;i++)
+              {
+
+                var myEvent = data[i];
+                var activity = myEvent["activity"];
+                var day = myEvent["day"];
+                var owner = myEvent["owner"];
+                var s_hour = myEvent["s_hour"];
+                var s_min = myEvent["s_min"];
+                var e_hour = myEvent["e_hour"];
+                var e_min = myEvent["e_min"];
+
+                $('#event_table').append('<tr><td>' + activity + '</td>' + '<td>' + day + '</td>' + '<td>' + owner + '</td>'+ '<td>' + s_hour + '</td>' + '<td>' + e_hour + '</td></tr>');
+
+                
+              }
+    
+            }
+            
+        });
+
+        $.ajax({
+
+            url: "https://"+window.location.host+"/rest/event/byOwner",
+            type:'GET',
+            dataType: "json",
+            success: function (data) {
+
+            var i;
+            for(i=0;i<data.length;i++)
+              {
+
+                var myEvent = data[i];
+                var activity = myEvent["activity"];
+                var day = myEvent["day"];
+                var owner = myEvent["owner"];
+                var s_hour = myEvent["s_hour"];
+                var s_min = myEvent["s_min"];
+                var e_hour = myEvent["e_hour"];
+                var e_min = myEvent["e_min"];
+
+                $('#eventByUser_table').append('<tr><td>' + activity + '</td>' + '<td>' + day + '</td>'+ '<td>' + s_hour + '</td>' + '<td>' + e_hour + '</td></tr>');
+
+                
+              }
+    
+            }
+            
+        });
+    });
 
     </script>
 
