@@ -143,6 +143,24 @@ public class EventResource {
 		datastore.put(eventEntity);
 		
 	}*/
+
+	/*@PATH("{eventId}")
+	@PUT
+	@Consumes("application/json")
+	public void createEvent( Event event) {
+		
+		Entity eventEntity = datastore.get(eventId);
+		eventEntity.setProperty("s_hour", event.getS_hour());
+		eventEntity.setProperty("s_min", event.getS_min());
+		eventEntity.setProperty("e_hour", event.getE_hour());
+		eventEntity.setProperty("e_min", event.getE_min());
+		eventEntity.setProperty("day", event.getDay());
+		eventEntity.setProperty("activity", event.getActivity());
+		eventEntity.setProperty("owner", userService.getCurrentUser().getNickname());
+		eventEntity.setProperty("ownerId", userService.getCurrentUser().getUserId());
+		datastore.put(eventEntity);
+		
+	}*/
 	
 	
 }

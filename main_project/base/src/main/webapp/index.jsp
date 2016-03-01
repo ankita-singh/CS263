@@ -486,6 +486,7 @@
                                  <th >Owner</th>
                                  <th >StartTime</th>
                                  <th >EndTime</th>
+                                 <th>   </th>
 
                             </tr>
                             
@@ -547,9 +548,10 @@ function submitData(){
         console.log(eventData);
       
         
-        
         $.ajax({
-              url: "/rest/event",
+
+              url: "https://"+window.location.host+"/rest/event/",
+              //url: "/rest/event",
               type: "POST",
               data: JSON.stringify(eventData),
               contentType: "application/json; charset=utf-8",
@@ -561,6 +563,36 @@ function submitData(){
     
     }
 
+
+function addEvent(){
+
+            var Book_clicked = event.target;
+            var eventData = {};
+            eventData["activity"] = Book_clicked.getAttribute('data-activity');
+            eventData["day"] = Book_clicked.getAttribute('data-day');
+            eventData["s_hour"] = Book_clicked.getAttribute('data-startHour');
+            eventData["s_min"] = Book_clicked.getAttribute('data-startMin');
+            eventData["e_hour"] = Book_clicked.getAttribute('data-endHour');
+            eventData["e_min"] = Book_clicked.getAttribute('data-endMin');
+            console.log(eventData);
+
+
+              $.ajax({
+
+              url: "https://"+window.location.host+"/rest/event/",
+              //url: "/rest/event",
+              type: "POST",
+              data: JSON.stringify(eventData),
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              success: function(){
+                  console.log("Your lecture has been created");
+              }
+            })
+            
+    }
+
+//show all events
 $(document).ready(function() {
   
 
@@ -568,6 +600,7 @@ $(document).ready(function() {
         $.ajax({
 
             url: "https://"+window.location.host+"/rest/event/",
+            //url: "/rest/event/",
             type:'GET',
             dataType: "json",
             success: function (data) {
@@ -585,7 +618,7 @@ $(document).ready(function() {
                 var e_hour = myEvent["e_hour"];
                 var e_min = myEvent["e_min"];
 
-                $('#event_table').append('<tr><td>' + activity + '</td>' + '<td>' + day + '</td>' + '<td>' + owner + '</td>'+ '<td>' + s_hour + '</td>' + '<td>' + e_hour + '</td></tr>');
+                $('#event_table').append('<tr><td>' + activity + '</td>' + '<td>' + day + '</td>' + '<td>' + owner + '</td>'+ '<td>' + s_hour + '</td>' + '<td>' + e_hour + '</td>' +'<td><button type="button"  data-activity=\"' + activity + '\" data-day=\"' + day + '\" data-startHour=\"' + s_hour + '\" data-startMin=\"' + s_min + '\" data-endHour=\"' + e_hour + '\" data-endMin =\"' + e_min + '\"onclick="addEvent(this)" class="btn btn-success"> Join </button></td></tr>');
 
                 
               }
@@ -597,6 +630,7 @@ $(document).ready(function() {
         $.ajax({
 
             url: "https://"+window.location.host+"/rest/event/byOwner",
+            //url: "/rest/event/byOwner",
             type:'GET',
             dataType: "json",
             success: function (data) {
@@ -622,6 +656,7 @@ $(document).ready(function() {
             }
             
         });
+
     });
 
     </script>
