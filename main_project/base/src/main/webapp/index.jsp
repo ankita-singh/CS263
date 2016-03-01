@@ -201,7 +201,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-6 portfolio-item">
+                <div class="col-sm-4 portfolio-item">
                     <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
                         <div class="caption">
                             <div class="caption-content">
@@ -212,7 +212,7 @@
                         <img src="img/portfolio/safe.png" class="img-responsive" alt="">
                     </a>
                 </div>
-                <div class="col-sm-6 portfolio-item">
+                <div class="col-sm-4 portfolio-item">
                     <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
                         <div class="caption">
                             <div class="caption-content">
@@ -223,11 +223,11 @@
                         <img src="img/portfolio/cake.png" class="img-responsive" alt="">
                     </a>
                 </div>       
-            </div>
+            
 
-            <div class="row">
+            
                
-                <div class="col-sm-6 portfolio-item">
+               <!--  <div class="col-sm-6 portfolio-item">
                     <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
                         <div class="caption">
                             <div class="caption-content">
@@ -237,9 +237,9 @@
                         <h3 style="text-align:center;">Upcoming Events!</h3>
                         <img src="img/portfolio/submarine.png" class="img-responsive" alt="">
                     </a>
-                </div> 
+                </div> --> 
 
-                <div class="col-sm-6 portfolio-item">
+                <div class="col-sm-4 portfolio-item">
                     <a href="#newActivity" class="portfolio-link" data-toggle="modal">
                         <div class="caption">
                             <div class="caption-content">
@@ -247,10 +247,10 @@
                             </div>
                         </div>
                         <h3 style="text-align:center;">New Activity!</h3>
-                        <img src="img/portfolio/game.png" class="img-responsive" alt="">
+                        <img src="img/portfolio/submarine.png" class="img-responsive" alt="">
                     </a>
                 </div>             
-            </div>
+            
 
         </div>
     </section>
@@ -334,8 +334,8 @@
                                   <div class="form-group">
                                     <label for="activity">Pick activity!</label>
                                     <select class="form-control" id="activity" placeholder="Activity"> 
-                                        <option value="football">Football</option>
-                                        <option value="basketball">Basketball</option>
+                                        <!-- <option value="football">Football</option>
+                                        <option value="basketball">Basketball</option> -->
                                     </select>
                                 </div>
                                   <div class="form-group">
@@ -374,7 +374,7 @@
     </div>
 
     <!-- upcoming events -->
-    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+<!--     <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
@@ -426,7 +426,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- New Activity -->
     <div class="portfolio-modal modal fade" id="newActivity" tabindex="-1" role="dialog" aria-hidden="true" data-focus-on="input:first" >
@@ -443,6 +443,7 @@
                         <div class="modal-body">
                         <h2>Create a new Activity</h2>
                             <hr class="star-primary">
+                            <img src="img/portfolio/submarine.png" class="img-responsive img-centered" alt="" height="100" width="200">
                            <form>
                                   <div class="form-group">
                                     <label for="activityName">Activity Name</label>
@@ -546,14 +547,14 @@ function submitData(){
       
         
         $.ajax({
-              url: "https://"+window.location.host+"/rest/event/",
-              //url: "/rest/event",
+              //url: "https://"+window.location.host+"/rest/event/",
+              url: "/rest/event",
               type: "POST",
               data: JSON.stringify(eventData),
               contentType: "application/json; charset=utf-8",
               dataType: "json",
               success: function(){
-                  alert("Your lecture has been created");
+                  alert("Your event has been created");
               }
             })
     
@@ -569,8 +570,8 @@ function createActivity(){
         
         $.ajax({
 
-              url: "https://"+window.location.host+"/rest/activity/",
-              //url: "/rest/activity",
+              //url: "https://"+window.location.host+"/rest/activity/",
+              url: "/rest/activity",
               type: "POST",
               data: JSON.stringify(activityData),
               contentType: "application/json; charset=utf-8",
@@ -592,8 +593,8 @@ function addEvent(){
             eventData["e_min"] = Book_clicked.getAttribute('data-endMin');
             console.log(eventData);
               $.ajax({
-              url: "https://"+window.location.host+"/rest/event/",
-              //url: "/rest/event",
+              //url: "https://"+window.location.host+"/rest/event/",
+              url: "/rest/event",
               type: "POST",
               data: JSON.stringify(eventData),
               contentType: "application/json; charset=utf-8",
@@ -609,8 +610,8 @@ $(document).ready(function() {
   
    
         $.ajax({
-            url: "https://"+window.location.host+"/rest/event/",
-            //url: "/rest/event/",
+            //url: "https://"+window.location.host+"/rest/event/",
+            url: "/rest/event/",
             type:'GET',
             dataType: "json",
             success: function (data) {
@@ -632,9 +633,10 @@ $(document).ready(function() {
             }
             
         });
+
         $.ajax({
-            url: "https://"+window.location.host+"/rest/event/byOwner",
-            //url: "/rest/event/byOwner",
+            //url: "https://"+window.location.host+"/rest/event/byOwner",
+            url: "/rest/event/byOwner",
             type:'GET',
             dataType: "json",
             success: function (data) {
@@ -656,6 +658,27 @@ $(document).ready(function() {
             }
             
         });
+
+        $.ajax({
+            //url: "https://"+window.location.host+"/rest/activity/",
+            url: "/rest/activity/",
+            type:'GET',
+            dataType: "json",
+            success: function (data) {
+            var i;
+            for(i=0;i<data.length;i++)
+              {
+                var activityEntity = data[i];
+                var activity_name = activityEntity["name"];
+                console.log(activity_name);
+                $("#activity").append($("<option />").val(activity_name).text(activity_name));
+                
+              }
+    
+            }
+            
+        });
+
     });
     </script>
 
