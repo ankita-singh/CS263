@@ -33,7 +33,6 @@
 
 
     <style type="text/css">
-
     .state-icon {
         left: -5px;
     }
@@ -41,7 +40,6 @@
         color: rgb(255, 255, 255);
         background-color: rgb(66, 139, 202);
     }
-
     </style>
 
 
@@ -448,13 +446,14 @@
                            <form>
                                   <div class="form-group">
                                     <label for="activityName">Activity Name</label>
-                                    <input type="text" class="form-control" id="activity" placeholder="Activity">
+                                    <input type="text" class="form-control" id="activity_name" placeholder="Activity name">
                                   </div>
                                   <div class="form-group">
-                                    <label for="day">Description</label>
-                                    <input type="textarea" class="form-control" id="day" placeholder="Day">
+                                    <label for="desc">Description</label>
+                                    <input type="textarea" class="form-control" id="desc" placeholder="Description">
                                   </div>
-                                  <button type="button" class="btn btn-success" data-dismiss="modal"> Create Activity</button>
+                                  <button onclick="createActivity()" class="btn btn-success">Create</button>
+                                   <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
                                 </form>
                         </div>
                     </div>
@@ -533,9 +532,7 @@
 
 
     <script type="text/javascript">
-
         
-
 function submitData(){
         
         var eventData = {};
@@ -549,7 +546,6 @@ function submitData(){
       
         
         $.ajax({
-
               url: "https://"+window.location.host+"/rest/event/",
               //url: "/rest/event",
               type: "POST",
@@ -563,9 +559,29 @@ function submitData(){
     
     }
 
+function createActivity(){
+        
+        var activityData = {};
+        activityData["name"] = $('#activity_name')[0].value;
+        activityData["description"] = $('#desc')[0].value;
+        console.log(activityData);
+      
+        
+        $.ajax({
 
+              url: "https://"+window.location.host+"/rest/activity/",
+              //url: "/rest/activity",
+              type: "POST",
+              data: JSON.stringify(activityData),
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              success: function(){
+                  alert("Your activity has been created");
+              }
+            })
+    
+    }
 function addEvent(){
-
             var Book_clicked = event.target;
             var eventData = {};
             eventData["activity"] = Book_clicked.getAttribute('data-activity');
@@ -575,10 +591,7 @@ function addEvent(){
             eventData["e_hour"] = Book_clicked.getAttribute('data-endHour');
             eventData["e_min"] = Book_clicked.getAttribute('data-endMin');
             console.log(eventData);
-
-
               $.ajax({
-
               url: "https://"+window.location.host+"/rest/event/",
               //url: "/rest/event",
               type: "POST",
@@ -591,24 +604,19 @@ function addEvent(){
             })
             
     }
-
 //show all events
 $(document).ready(function() {
   
-
    
         $.ajax({
-
             url: "https://"+window.location.host+"/rest/event/",
             //url: "/rest/event/",
             type:'GET',
             dataType: "json",
             success: function (data) {
-
             var i;
             for(i=0;i<data.length;i++)
               {
-
                 var myEvent = data[i];
                 var activity = myEvent["activity"];
                 var day = myEvent["day"];
@@ -617,28 +625,22 @@ $(document).ready(function() {
                 var s_min = myEvent["s_min"];
                 var e_hour = myEvent["e_hour"];
                 var e_min = myEvent["e_min"];
-
                 $('#event_table').append('<tr><td>' + activity + '</td>' + '<td>' + day + '</td>' + '<td>' + owner + '</td>'+ '<td>' + s_hour + '</td>' + '<td>' + e_hour + '</td>' +'<td><button type="button"  data-activity=\"' + activity + '\" data-day=\"' + day + '\" data-startHour=\"' + s_hour + '\" data-startMin=\"' + s_min + '\" data-endHour=\"' + e_hour + '\" data-endMin =\"' + e_min + '\"onclick="addEvent(this)" class="btn btn-success"> Join </button></td></tr>');
-
                 
               }
     
             }
             
         });
-
         $.ajax({
-
             url: "https://"+window.location.host+"/rest/event/byOwner",
             //url: "/rest/event/byOwner",
             type:'GET',
             dataType: "json",
             success: function (data) {
-
             var i;
             for(i=0;i<data.length;i++)
               {
-
                 var myEvent = data[i];
                 var activity = myEvent["activity"];
                 var day = myEvent["day"];
@@ -647,18 +649,14 @@ $(document).ready(function() {
                 var s_min = myEvent["s_min"];
                 var e_hour = myEvent["e_hour"];
                 var e_min = myEvent["e_min"];
-
                 $('#eventByUser_table').append('<tr><td>' + activity + '</td>' + '<td>' + day + '</td>'+ '<td>' + s_hour + '</td>' + '<td>' + e_hour + '</td></tr>');
-
                 
               }
     
             }
             
         });
-
     });
-
     </script>
 
 
