@@ -142,10 +142,12 @@ public class ActivityResource {
 		
 
 		Entity activityEntity = new Entity("ACTIVITY");
+		String CACHE_KEY = "ALL_ACTIVITIES";
 		activityEntity.setProperty("name", activity.getName());
 		activityEntity.setProperty("description", activity.getDescription());
 		activityEntity.setProperty("ownerId", userService.getCurrentUser().getUserId());
 		datastore.put(activityEntity);
+		//syncCache.put(CACHE_KEY, activityEntity);
 		
 	}
 
