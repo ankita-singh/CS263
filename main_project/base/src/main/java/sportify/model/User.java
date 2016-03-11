@@ -11,10 +11,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class User{
 
 
-		private String name;
+		private String fname;
+		private String lname;
 		private String address;
 		private String username;
 		private String email;
+		private String phone;
 		private long id;
 
 
@@ -22,8 +24,10 @@ public class User{
 
 		}
 
-		public User(String name, String address, String username, String email, long id) {
-		this.setName(name);
+		public User(String fname,String lname, String phone, String address, String username, String email, long id) {
+		this.setFname(fname);
+		this.setLname(lname);
+		this.setPhone(phone);
 		this.setAddress(address);
 		this.setUsername(username);
 		this.setEmail(email);
@@ -32,14 +36,14 @@ public class User{
 		}
 
 		@XmlElement
-		public String getName() 
+		public String getFname() 
 		{
-			return name;
+			return fname;
 		}
 
-		public void setName(String name)
+		public void setFname(String fname)
 		{
-			this.name = name;
+			this.fname = fname;
 		}
 	
 		@XmlElement
@@ -87,6 +91,28 @@ public class User{
 			this.id = id;
 		}
 
+		@XmlElement
+		public String getPhone() 
+		{
+			return phone;
+		}
+
+		public void setPhone(String phone)
+		{
+			
+			this.phone = phone;
+		}
+
+		@XmlElement
+		public String getLname() 
+		{
+			return lname;
+		}
+
+		public void setLname(String lname)
+		{
+			this.lname = lname;
+		}
 
 
 }
