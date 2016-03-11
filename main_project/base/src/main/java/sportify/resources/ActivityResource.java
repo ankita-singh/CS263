@@ -2,7 +2,7 @@ package sportify.resources;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.List; 
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -31,6 +31,10 @@ import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
 import sportify.model.Event;
 import sportify.model.Activity;
+
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 
 import com.google.appengine.api.users.*;
 
@@ -64,6 +68,37 @@ DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	}
 
 
+	@GET
+	@Path("/byOwner")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Activity> getActivitybyOwner()
+		{
+		
+			ArrayList<Activity> activities = new ArrayList<Activity>();
+			if(userService.getCurrentUser()!=null)
+
+			{
+				Activity activity;
+				Filter byOwner = new FilterPredicate("ownerId", FilterOperator.EQUAL, userService.getCurrentUser().getUserId());
+        		Query q = new Query("ACTIVITY").setFilter(byOwner);
+				PreparedQuery pq = datastore.prepare(q);
+				for (Entity activityEntity : pq.asIterable()) {
+					activity = new Activity();
+						
+				activity.setName((String)activityEntity.getProperty("name"));
+				activity.setOwnerId((String)activityEntity.getProperty("ownerId"));
+				activity.setDescription((String)activityEntity.getProperty("description"));
+				activities.add(activity);
+			
+				}
+				
+			}
+			return activities;	
+	}
+	
+
+
+
 	@POST
 	@Consumes("application/json")
 	public void createActivity(Activity activity) {
@@ -72,6 +107,7 @@ DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Entity activityEntity = new Entity("ACTIVITY");
 		activityEntity.setProperty("name", activity.getName());
 		activityEntity.setProperty("description", activity.getDescription());
+		activityEntity.setProperty("ownerId", userService.getCurrentUser().getUserId());
 		datastore.put(activityEntity);
 		
 	}
