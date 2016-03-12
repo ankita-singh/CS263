@@ -52,27 +52,29 @@ public class ActivityResource {
 	MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
 
 
-/*	@GET
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<Activity> getActivity()
-		{
-		
-		
-			ArrayList<Activity> activities = new ArrayList<Activity>();
-			Activity activity;
-			Query q = new Query("ACTIVITY");
-			PreparedQuery pq = datastore.prepare(q);
+	public ArrayList<Activity> getActivity(){
+		Query q = new Query("ACTIVITY");
+		PreparedQuery pq = datastore.prepare(q);
+		ArrayList<Activity> activities;
+		String CACHE_KEY = "ALL_ACTIVITIES";
+		activities =  (ArrayList<Activity>) syncCache.get(CACHE_KEY);
+		if(activities == null){
+			activities = new ArrayList<Activity>();
 			for (Entity activityEntity : pq.asIterable()) {
-				activity = new Activity();
-			
+				Activity activity = new Activity();
 				activity.setName((String)activityEntity.getProperty("name"));
-				activity.setDescription((String)activityEntity.getProperty("description"));				
-				
+				activity.setDescription((String)activityEntity.getProperty("description"));
+				activity.setOwnerId((String)activityEntity.getProperty("ownerId"));
 				activities.add(activity);
-			
+			}
+			syncCache.put(CACHE_KEY, activities, Expiration.byDeltaSeconds(60));
 		}
-		return activities;	
-	}*/
+		
+		
+		return activities;
+	}
 
 
 	@GET
@@ -107,33 +109,15 @@ public class ActivityResource {
 
 
 	@GET
+	@Path("/fromMemcache")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Activity> getAllactivities(){
-		Query q = new Query("ACTIVITY");
-		PreparedQuery pq = datastore.prepare(q);
+	
 		ArrayList<Activity> activities;
 		String CACHE_KEY = "ALL_ACTIVITIES";
-		long before = new Date().getTime();
 		activities =  (ArrayList<Activity>) syncCache.get(CACHE_KEY);
-		if(activities == null){
-			activities = new ArrayList<Activity>();
-			for (Entity activityEntity : pq.asIterable()) {
-				Activity activity = new Activity();
-				activity.setName((String)activityEntity.getProperty("name"));
-				activity.setDescription((String)activityEntity.getProperty("description"));
-				activity.setOwnerId((String)activityEntity.getProperty("ownerId"));
-				activities.add(activity);
-			}
-			syncCache.put(CACHE_KEY, activities);
-		}
-		
-		long after = new Date().getTime();
-		System.out.println("Time taken to get all activities "+ (after - before));
 		return activities;
 	}
-
-
-
 
 
 	@POST
@@ -142,12 +126,29 @@ public class ActivityResource {
 		
 
 		Entity activityEntity = new Entity("ACTIVITY");
-		String CACHE_KEY = "ALL_ACTIVITIES";
+		String CACHE_KEY = "ACTIVITY";
 		activityEntity.setProperty("name", activity.getName());
 		activityEntity.setProperty("description", activity.getDescription());
 		activityEntity.setProperty("ownerId", userService.getCurrentUser().getUserId());
 		datastore.put(activityEntity);
-		//syncCache.put(CACHE_KEY, activityEntity);
+		syncCache.put(CACHE_KEY, activity);
+		
+	}
+
+
+	@POST
+	@Path("/toMemcache")
+	@Consumes("application/json")
+	public void addActivityToCache(Activity activity) {
+		String CACHE_KEY = "ALL_ACTIVITIES";
+		ArrayList<Activity> activities;
+		activities =  (ArrayList<Activity>) syncCache.get(CACHE_KEY);
+		if(activities == null){
+			
+			activities = new ArrayList<Activity>();
+		}
+		activities.add(activity);
+		syncCache.put(CACHE_KEY, activities, Expiration.byDeltaSeconds(60));
 		
 	}
 
