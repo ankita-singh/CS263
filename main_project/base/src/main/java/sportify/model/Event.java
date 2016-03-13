@@ -11,6 +11,8 @@ import java.util.Date;
 
 @XmlRootElement
 public class Event {
+
+	String id;
 	int day;
 	int s_hour;
 	int s_min;
@@ -24,6 +26,14 @@ public class Event {
 	public Event(){
 
 		}
+
+	public String getId() {
+		return id;
+	}
+	@XmlElement
+	public void setId(String id) {
+		this.id = id;
+	}
 	
 	public int getDay() {
 		return day;

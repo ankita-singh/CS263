@@ -299,6 +299,7 @@
                                  <th >Day</th>
                                  <th >StartTime</th>
                                  <th >EndTime</th>
+                                 <th > </th>
 
                             </tr>
                             
@@ -373,60 +374,7 @@
         </div>
     </div>
 
-    <!-- upcoming events -->
-<!--     <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>Upcoming Events</h2>
-                            <hr class="star-primary">
-                            <img src="img/portfolio/submarine.png" class="img-responsive img-centered" alt="" height="100" width="200">
-                            <table class="table table-striped table-hover" style="text-align: center;">
-                            <tr>
-                                 <th style="text-align: center;">Activity</th>
-                                 <th style="text-align: center;">Owner</th>
-                                 <th style="text-align: center;">Time</th>
-                                 <th style="text-align: center;">Participants</th>
-                                 <th style="text-align: center;">  </th>
-                            </tr>
-                            <tr>
-                                 <td>BasketBall</td>
-                                 <td>Joey</td>
-                                 <td>Saturday 11am-1pm</td>
-                                 <td>Chandler, Ross</td>
-                                 <td><button type="button" class="btn btn-warning">Not Interested</button>
-                            </tr>
-                              <tr>
-                                 <td>BasketBall</td>
-                                 <td>Joey</td>
-                                 <td>Saturday 11am-1pm</td>
-                                 <td>Chandler, Ross</td>
-                                 <td><button type="button" class="btn btn-warning">Not Interested</button>
-                            </tr>
-                           <tr>
-                                 <td>BasketBall</td>
-                                 <td>Joey</td>
-                                 <td>Saturday 11am-1pm</td>
-                                 <td>Chandler, Ross</td>
-                                 <td><button type="button" class="btn btn-warning">Not Interested</button>
-                            </tr>
-
-                            </table>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
+ 
 
     <!-- New Activity -->
     <div class="portfolio-modal modal fade" id="newActivity" tabindex="-1" role="dialog" aria-hidden="true" data-focus-on="input:first" >
@@ -537,12 +485,16 @@
 function submitData(){
         
         var eventData = {};
+        var id = 1;
         eventData["activity"] = $('#activity')[0].value;
         eventData["s_hour"] = $('#s_hour')[0].value;
         eventData["s_min"] = $('#s_min')[0].value;
         eventData["e_hour"] = $('#e_hour')[0].value;
         eventData["e_min"] = $('#e_min')[0].value;
         eventData["day"] = $('#day')[0].value;
+        eventData["id"] = id++;
+        console.log(eventData["id"]);
+
         console.log(eventData);
       
         
@@ -605,6 +557,25 @@ function addEvent(){
             })
             
     }
+
+
+function cancelEvent(button){
+
+             var $this = $(this);
+              console.log($this);
+              console.log(button.value);
+              $.ajax({
+              
+              url: "/rest/event/"+button.value,
+              type: "DELETE",
+              
+              success: function(){
+                  alert("Event Deleted"),
+                  console.log("delete called");
+              }
+            })
+            
+    }
 //show all events
 $(document).ready(function() {
   
@@ -651,7 +622,8 @@ $(document).ready(function() {
                 var s_min = myEvent["s_min"];
                 var e_hour = myEvent["e_hour"];
                 var e_min = myEvent["e_min"];
-                $('#eventByUser_table').append('<tr><td>' + activity + '</td>' + '<td>' + day + '</td>'+ '<td>' + s_hour + '</td>' + '<td>' + e_hour + '</td></tr>');
+                var id = myEvent["id"];
+                $('#eventByUser_table').append('<tr><td>' + activity + '</td>' + '<td>' + day + '</td>'+ '<td>' + s_hour + '</td>' + '<td>' + e_hour + '</td><td><button type="button" value = \"' + id + '\" onclick="cancelEvent(this)" class="btn btn-danger" id=deleteEvent> Cancel </button></td></tr>');
                 
               }
     
@@ -659,6 +631,8 @@ $(document).ready(function() {
             
         });
 
+
+        // Populate acivity dropdown
         $.ajax({
             //url: "https://"+window.location.host+"/rest/activity/",
             url: "/rest/activity/",

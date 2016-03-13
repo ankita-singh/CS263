@@ -101,6 +101,7 @@ public class EventResource {
 				event.setOwner((String)eventEntity.getProperty("owner"));
 				event.setOwnerId((String)eventEntity.getProperty("ownerId"));
 				event.setActivity((String)eventEntity.getProperty("activity"));
+				event.setId(KeyFactory.keyToString(eventEntity.getKey()));
 				events.add(event);
 			
 				}
@@ -123,54 +124,33 @@ public class EventResource {
 		eventEntity.setProperty("e_hour", event.getE_hour());
 		eventEntity.setProperty("e_min", event.getE_min());
 		eventEntity.setProperty("day", event.getDay());
-		eventEntity.setProperty("activity", event.getActivity());
+		eventEntity.setProperty("activity", event.getActivity());eventEntity.setProperty("ownerId", userService.getCurrentUser().getUserId());
 		eventEntity.setProperty("owner", userService.getCurrentUser().getNickname());
 		eventEntity.setProperty("ownerId", userService.getCurrentUser().getUserId());
+		eventEntity.setProperty("id",event.getId());
 		datastore.put(eventEntity);
 		
 	}
-		/*@POST
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void createEvent(@FormParam("s_hour") int s_hour,
-							@FormParam("s_min") int s_min,
-							@FormParam("e_hour") int e_hour,
-							@FormParam("e_min") int e_min,
-							@FormParam("day") int day,
-							@FormParam("activity") String activity
 
-		) {
-		
 
-		Entity eventEntity = new Entity("EVENT");
-		eventEntity.setProperty("s_hour", s_hour);
-		eventEntity.setProperty("s_min", s_min);
-		eventEntity.setProperty("e_hour", e_hour);
-		eventEntity.setProperty("e_min", e_min);
-		eventEntity.setProperty("day", day);
-		eventEntity.setProperty("activity", activity);
-		eventEntity.setProperty("owner", userService.getCurrentUser().getUserId());;
-		datastore.put(eventEntity);
-		
-	}*/
+	@DELETE
+  	@Path("/{id}")
+  	public void deleteEvent(@PathParam("id") String id) {
 
-	/*@PATH("{eventId}")
-	@PUT
-	@Consumes("application/json")
-	public void createEvent( Event event) {
+  	Queue queue = QueueFactory.getDefaultQueue();
+  	queue.add(TaskOptions.Builder.withUrl("/rest/event/taskQueue/"+id).method(TaskOptions.Method.DELETE));
+	//datastore.delete(KeyFactory.stringToKey(id));
+  }
+
+	@DELETE
+  	@Path("/taskQueue/{id}")
+  	public void deleteEventQueue(@PathParam("id") String id) {
+
+	datastore.delete(KeyFactory.stringToKey(id));
+  }
+
+
 		
-		Entity eventEntity = datastore.get(eventId);
-		eventEntity.setProperty("s_hour", event.getS_hour());
-		eventEntity.setProperty("s_min", event.getS_min());
-		eventEntity.setProperty("e_hour", event.getE_hour());
-		eventEntity.setProperty("e_min", event.getE_min());
-		eventEntity.setProperty("day", event.getDay());
-		eventEntity.setProperty("activity", event.getActivity());
-		eventEntity.setProperty("owner", userService.getCurrentUser().getNickname());
-		eventEntity.setProperty("ownerId", userService.getCurrentUser().getUserId());
-		datastore.put(eventEntity);
-		
-	}*/
-	
 	
 }
 
