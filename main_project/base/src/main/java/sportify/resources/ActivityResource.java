@@ -22,26 +22,25 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
-
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
+
+
 import sportify.model.Event;
+
 import sportify.model.Activity;
 
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.FilterOperator;
-
 import com.google.appengine.api.memcache.ErrorHandlers;
 import com.google.appengine.api.memcache.Expiration;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
-
 import com.google.appengine.api.users.*;
 
 @Path("/activity")
@@ -76,8 +75,61 @@ public class ActivityResource {
 		return activities;
 	}
 
-
 	@GET
+	@Path("/fromMemcache")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Activity> getActivitiesFromMemcache(){
+	
+		ArrayList<Activity> activities;
+		String CACHE_KEY = "ALL_ACTIVITIES";
+		activities =  (ArrayList<Activity>) syncCache.get(CACHE_KEY);
+		return activities;
+	}
+
+
+	@POST
+	@Consumes("application/json")
+	public void createActivity(Activity activity) {
+		
+
+		Entity activityEntity = new Entity("ACTIVITY");
+		activityEntity.setProperty("name", activity.getName());
+		activityEntity.setProperty("description", activity.getDescription());
+		if(userService.getCurrentUser()!=null)
+		activityEntity.setProperty("ownerId", userService.getCurrentUser().getUserId());
+		datastore.put(activityEntity);
+		
+		//Storing in cache
+		String CACHE_KEY = "ALL_ACTIVITIES";
+		ArrayList<Activity> activities;
+		activities =  (ArrayList<Activity>) syncCache.get(CACHE_KEY);
+		if(activities == null){
+			
+			activities = new ArrayList<Activity>();
+		}
+		activities.add(activity);
+		syncCache.put(CACHE_KEY, activities, Expiration.byDeltaSeconds(60));
+		
+	}
+
+
+	@POST
+	@Path("/toMemcache")
+	@Consumes("application/json")
+	public void addActivityToCache(Activity activity) {
+		String CACHE_KEY = "ALL_ACTIVITIES";
+		ArrayList<Activity> activities;
+		activities =  (ArrayList<Activity>) syncCache.get(CACHE_KEY);
+		if(activities == null){
+			
+			activities = new ArrayList<Activity>();
+		}
+		activities.add(activity);
+		syncCache.put(CACHE_KEY, activities, Expiration.byDeltaSeconds(60));
+		
+	}
+
+	/*@GET
 	@Path("/byOwner")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<Activity> getActivitybyOwner()
@@ -104,53 +156,7 @@ public class ActivityResource {
 			}
 			return activities;	
 	}
-	
-
-
-
-	@GET
-	@Path("/fromMemcache")
-	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<Activity> getAllactivities(){
-	
-		ArrayList<Activity> activities;
-		String CACHE_KEY = "ALL_ACTIVITIES";
-		activities =  (ArrayList<Activity>) syncCache.get(CACHE_KEY);
-		return activities;
-	}
-
-
-	@POST
-	@Consumes("application/json")
-	public void createActivity(Activity activity) {
-		
-
-		Entity activityEntity = new Entity("ACTIVITY");
-		String CACHE_KEY = "ACTIVITY";
-		activityEntity.setProperty("name", activity.getName());
-		activityEntity.setProperty("description", activity.getDescription());
-		activityEntity.setProperty("ownerId", userService.getCurrentUser().getUserId());
-		datastore.put(activityEntity);
-		syncCache.put(CACHE_KEY, activity);
-		
-	}
-
-
-	@POST
-	@Path("/toMemcache")
-	@Consumes("application/json")
-	public void addActivityToCache(Activity activity) {
-		String CACHE_KEY = "ALL_ACTIVITIES";
-		ArrayList<Activity> activities;
-		activities =  (ArrayList<Activity>) syncCache.get(CACHE_KEY);
-		if(activities == null){
-			
-			activities = new ArrayList<Activity>();
-		}
-		activities.add(activity);
-		syncCache.put(CACHE_KEY, activities, Expiration.byDeltaSeconds(60));
-		
-	}
+	*/
 
 
 }

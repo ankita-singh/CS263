@@ -8,7 +8,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
+import javax.ws.rs.PUT; 
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -16,6 +16,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
+import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -24,7 +25,6 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
@@ -69,6 +69,8 @@ public class EventResource {
 				event.setE_min(((Long)eventEntity.getProperty("e_min")).intValue());				
 				event.setOwner((String)eventEntity.getProperty("owner"));
 				event.setOwnerId((String)eventEntity.getProperty("ownerId"));
+				event.setDay(((Long)eventEntity.getProperty("day")).intValue());
+				event.setId(KeyFactory.keyToString(eventEntity.getKey()));
 				event.setActivity((String)eventEntity.getProperty("activity"));
 				events.add(event);
 			
@@ -99,6 +101,7 @@ public class EventResource {
 				event.setE_hour(((Long)eventEntity.getProperty("e_hour")).intValue());
 				event.setE_min(((Long)eventEntity.getProperty("e_min")).intValue());				
 				event.setOwner((String)eventEntity.getProperty("owner"));
+				event.setDay(((Long)eventEntity.getProperty("day")).intValue());
 				event.setOwnerId((String)eventEntity.getProperty("ownerId"));
 				event.setActivity((String)eventEntity.getProperty("activity"));
 				event.setId(KeyFactory.keyToString(eventEntity.getKey()));
@@ -113,9 +116,44 @@ public class EventResource {
 
 	
 
+	@GET
+	@Path("/{Id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Event getEventbyId(@PathParam("Id") String id)
+		{
+		 
+		Event event = new Event();
+
+			if(userService.getCurrentUser()!=null)
+
+			{
+				Key event_key = KeyFactory.stringToKey(id);
+				Entity event_entity;
+				try {
+					event_entity = datastore.get(event_key);
+					event.setDay((int) event_entity.getProperty("day"));
+		            event.setS_hour((int) event_entity.getProperty("s_hour"));
+		            event.setS_min((int) event_entity.getProperty("s_min"));
+		            event.setE_hour((int) event_entity.getProperty("e_hour"));
+		            event.setE_min((int) event_entity.getProperty("e_min"));
+		            event.setActivity((String) event_entity.getProperty("activity"));
+		            event.setOwner((String) event_entity.getProperty("owner"));
+		            event.setOwnerId((String) event_entity.getProperty("ownerId"));
+					
+				} catch (EntityNotFoundException e) {
+					
+					e.printStackTrace();
+				}	
+				
+			}
+			return event;	
+	}
+
+
+
 	@POST
 	@Consumes("application/json")
-	public void createEvent(Event event) {
+	public Event createEvent(Event event) {
 		
 
 		Entity eventEntity = new Entity("EVENT");
@@ -124,11 +162,18 @@ public class EventResource {
 		eventEntity.setProperty("e_hour", event.getE_hour());
 		eventEntity.setProperty("e_min", event.getE_min());
 		eventEntity.setProperty("day", event.getDay());
-		eventEntity.setProperty("activity", event.getActivity());eventEntity.setProperty("ownerId", userService.getCurrentUser().getUserId());
+		eventEntity.setProperty("activity", event.getActivity());
+		if(userService.getCurrentUser()!= null)
+		{
 		eventEntity.setProperty("owner", userService.getCurrentUser().getNickname());
 		eventEntity.setProperty("ownerId", userService.getCurrentUser().getUserId());
-		eventEntity.setProperty("id",event.getId());
+	    }
 		datastore.put(eventEntity);
+
+		String id = KeyFactory.keyToString(eventEntity.getKey());
+		event.setId(id);
+
+		return event;
 		
 	}
 

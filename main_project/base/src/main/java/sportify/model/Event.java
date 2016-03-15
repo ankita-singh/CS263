@@ -12,6 +12,22 @@ import java.util.Date;
 @XmlRootElement
 public class Event {
 
+	@Override
+	public String toString() {
+		return "Event [id=" + id + ", day=" + day + ", s_hour=" + s_hour
+				+ ", s_min=" + s_min + ", e_hour=" + e_hour + ", e_min="
+				+ e_min + ", activity=" + activity + ", owner=" + owner
+				+ ", ownerId=" + ownerId + ", getId()=" + getId()
+				+ ", getDay()=" + getDay() + ", getS_hour()=" + getS_hour()
+				+ ", getS_min()=" + getS_min() + ", getE_hour()=" + getE_hour()
+				+ ", getE_min()=" + getE_min() + ", getActivity()="
+				+ getActivity() + ", getOwner()=" + getOwner()
+				+ ", getOwnerId()=" + getOwnerId() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
+
+	
 	String id;
 	int day;
 	int s_hour;
