@@ -33,6 +33,11 @@ import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 
+import com.google.appengine.api.memcache.ErrorHandlers;
+import com.google.appengine.api.memcache.Expiration;
+import com.google.appengine.api.memcache.MemcacheService;
+import com.google.appengine.api.memcache.MemcacheServiceFactory;
+
 import com.google.appengine.api.users.*;
 
 
@@ -48,6 +53,7 @@ public class EventResource {
 
 	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	UserService userService = UserServiceFactory.getUserService();
+	MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
 
 
 	@GET
@@ -172,6 +178,16 @@ public class EventResource {
 
 		String id = KeyFactory.keyToString(eventEntity.getKey());
 		event.setId(id);
+
+		String CACHE_KEY = "ALL_EVENTS";
+		ArrayList<Event> events;
+		events =  (ArrayList<Event>) syncCache.get(CACHE_KEY);
+		if(events == null){
+			
+			events = new ArrayList<Event>();
+		}
+		events.add(event);
+		syncCache.put(CACHE_KEY, events, Expiration.byDeltaSeconds(60));
 
 		return event;
 		

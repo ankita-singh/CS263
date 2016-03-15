@@ -12,6 +12,8 @@ import org.glassfish.jersey.client.ClientConfig;
 import org.junit.Test;
 
 import com.google.appengine.api.datastore.KeyFactory;
+
+import com.google.appengine.api.users.*;
  
 public class TestEvent {
 
@@ -19,6 +21,7 @@ public class TestEvent {
     	ClientConfig config = new ClientConfig();
         Client client = ClientBuilder.newClient(config);
     	WebTarget service = client.target(getBaseURI());
+       
 
 
 
@@ -35,6 +38,7 @@ public class TestEvent {
             event1.setActivity("football");
             event1.setOwner("ankita");
             event1.setOwnerId("123");
+            
             Response response = service.path("rest").path("event").request(MediaType.APPLICATION_JSON).post(Entity.entity(event1,MediaType.APPLICATION_JSON),Response.class);
             int status = response.getStatus();
             if (status != 200) 
