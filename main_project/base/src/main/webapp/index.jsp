@@ -31,6 +31,8 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
+    <link type="text/css" href="css/bootstrap-timepicker.min.css" rel='stylesheet'/>
+
 
     <style type="text/css">
     .state-icon {
@@ -156,13 +158,12 @@
                     </ul>
                     <button type="button" class="btn btn-success" >Save</button>
                 </div>
-
             </div>
         </div>
     </section> -->
     
 
-    <!-- View Activities -->
+    <!-- View All Events -->
     <section class="success" id="about">
         <div class="container">
             <div class="row">
@@ -333,8 +334,6 @@
                                   <div class="form-group">
                                     <label for="activity">Pick activity!</label>
                                     <select class="form-control" id="activity" placeholder="Activity"> 
-                                        <!-- <option value="football">Football</option>
-                                        <option value="basketball">Basketball</option> -->
                                     </select>
                                 </div>
                                   <div class="form-group">
@@ -349,16 +348,22 @@
                                         <option value="Saturday">Saturday</option>
                                     </select>
                                   </div>
+
                                   <div class="form-group">
                                     <label for="startTime">Pick the start time!</label>
-                                    <input type="text" class="form-control" id="s_hour" placeholder="Starting hour...">
-                                    <input type="text" class="form-control" id="s_min" placeholder="Starting min...">
-                                   
+                                    <input type="text" class="form-control" id="startTimePicker" placeholder="Starts at... (24 hrs format)">
                                   </div>
+
+
+                                  <!--  <div class="input-append bootstrap-timepicker form-control">
+                                         <label for="startTimePicker">Starts At:</label>
+                                         <input id="startTimePicker" type="text">
+                                         <span class="add-on"><i class="icon-time"></i></span>
+                                    </div> -->
+
                                   <div class="form-group">
                                     <label for="startTime">Pick the end time!</label>
-                                    <input type="text" class="form-control" id="e_hour" placeholder="Ending hour...">
-                                    <input type="text" class="form-control" id="e_min" placeholder="Ending hour...">
+                                    <input type="text" class="form-control" id="endTimePicker" placeholder="Ends at... (24 hrs format)">
                                   </div>
                                   <button onclick="submitData()" class="btn btn-success">Create</button>
 
@@ -475,6 +480,9 @@
     <!--  Custom js for the list -->
     <script src="js/myscripts.js"></script>
 
+    <script src="js/bootstrap-timepicker.min.js"></script>
+
+
     <!---<script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>-->
 
 
@@ -483,19 +491,31 @@
 function submitData(){
         
         var eventData = {};
-        var id = 1;
-        eventData["activity"] = $('#activity')[0].value;
-        eventData["s_hour"] = $('#s_hour')[0].value;
-        eventData["s_min"] = $('#s_min')[0].value;
-        eventData["e_hour"] = $('#e_hour')[0].value;
-        eventData["e_min"] = $('#e_min')[0].value;
-        eventData["day"] = $('#day')[0].value;
-        eventData["id"] = id++;
-        console.log(eventData["id"]);
 
-        console.log(eventData);
-      
+
+
+        var START_TIME_CHECK = checkTime($('#startTimePicker')[0]);
+        var END_TIME_CHECK = checkTime($('#endTimePicker')[0]);
+
+        if( START_TIME_CHECK && END_TIME_CHECK)
+        {
+
+        eventData["activity"] = $('#activity')[0].value;
+        var startTime = $('#startTimePicker')[0].value;
+        eventData["s_hour"] = startTime.split(':')[0];
+        eventData["s_min"] = startTime.split(':')[1];
+        var endTime = $('#endTimePicker')[0].value;
+        eventData["e_hour"] = endTime.split(':')[0];
+        eventData["e_min"] = endTime.split(':')[1];
+        eventData["day"] = $('#day')[0].value;
+
+        if(eventData["s_hour"] * 100 +eventData["s_min"] >= eventData["e_hour"] *100 + eventData["e_min"]){
+            alert("Please enter a valid schedule");
+            return;
+        }
+       
         
+
         $.ajax({
               //url: "https://"+window.location.host+"/rest/event/",
               url: "/rest/event",
@@ -505,21 +525,73 @@ function submitData(){
               dataType: "json",
               success: function(){
                   alert("Your event has been created");
+                  return;
               }
             })
+
+        }
+                 
     
     }
+
+
+
+    function checkTime(field)
+  {
+    var errorMsg = "";
+
+    // regular expression to match required time format
+    re = /^(\d{1,2}):(\d{2})(:00)?$/;
+
+    if(field.value != '') {
+      if(regs = field.value.match(re)) {
+        if(regs[4]) {
+          // 12-hour time format with am/pm
+          if(regs[1] < 1 || regs[1] > 12) {
+            errorMsg = "Invalid value for hours: " + regs[1];
+          }
+        } else {
+          // 24-hour time format
+          if(regs[1] > 23) {
+            errorMsg = "Invalid value for hours: " + regs[1];
+          }
+        }
+        if(!errorMsg && regs[2] > 59) {
+          errorMsg = "Invalid value for minutes: " + regs[2];
+        }
+      } else {
+        errorMsg = "Invalid time format: " + field.value;
+      }
+    }
+
+    if(errorMsg != "") {
+      alert(errorMsg);
+      field.focus();
+      return false;
+    }
+
+    return true;
+  }
 
 function createActivity(){
         
         var activityData = {};
+        var errorMsg = ""
+
+        if($('#activity_name')[0].value == "")
+        {
+            alert("Name cannot be empty");
+            $('#activity_name')[0].focus();
+        }
+
+
+        else
+        {
+
         activityData["name"] = $('#activity_name')[0].value;
         activityData["description"] = $('#desc')[0].value;
-        console.log(activityData);
-      
-        
+           
         $.ajax({
-
               //url: "https://"+window.location.host+"/rest/activity/",
               url: "/rest/activity",
               type: "POST",
@@ -530,6 +602,8 @@ function createActivity(){
                   alert("Your activity has been created");
               }
             })
+        }
+        
     
     }
 function addEvent(){
@@ -550,15 +624,12 @@ function addEvent(){
               contentType: "application/json; charset=utf-8",
               dataType: "json",
               success: function(){
-                  console.log("Your lecture has been created");
+                  alert("Joined successfully");
               }
             })
             
     }
-
-
 function cancelEvent(button){
-
              var $this = $(this);
               console.log($this);
               console.log(button.value);
@@ -568,8 +639,8 @@ function cancelEvent(button){
               type: "DELETE",
               
               success: function(){
-                  alert("Event Deleted"),
-                  console.log("delete called");
+                  alert("Event Deleted");
+                  
               }
             })
             
@@ -602,7 +673,6 @@ $(document).ready(function() {
             }
             
         });
-
         $.ajax({
             //url: "https://"+window.location.host+"/rest/event/byOwner",
             url: "/rest/event/byOwner",
@@ -621,15 +691,13 @@ $(document).ready(function() {
                 var e_hour = myEvent["e_hour"];
                 var e_min = myEvent["e_min"];
                 var id = myEvent["id"];
-                $('#eventByUser_table').append('<tr><td>' + activity + '</td>' + '<td>' + day + '</td>'+ '<td>' + s_hour + '</td>' + '<td>' + e_hour + '</td><td><button type="button" value = \"' + id + '\" onclick="cancelEvent(this)" class="btn btn-danger" id=deleteEvent> Cancel </button></td></tr>');
+                $('#eventByUser_table').append('<tr><td>' + activity + '</td>' + '<td>' + day + '</td>'+ '<td>' + s_hour + ":"+ s_min + '</td>' + '<td>' + e_hour + ":" + e_min + '</td><td><button type="button" value = \"' + id + '\" onclick="cancelEvent(this)" class="btn btn-danger" id=deleteEvent> Cancel </button></td></tr>');
                 
               }
     
             }
             
         });
-
-
         // Populate acivity dropdown
         $.ajax({
             //url: "https://"+window.location.host+"/rest/activity/",
@@ -650,7 +718,6 @@ $(document).ready(function() {
             }
             
         });
-
     });
     </script>
 
