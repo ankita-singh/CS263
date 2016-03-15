@@ -66,7 +66,13 @@ public class EventResource {
 			Event event;
 			Query q = new Query("EVENT");
 			PreparedQuery pq = datastore.prepare(q);
-			for (Entity eventEntity : pq.asIterable()) {
+			
+			String CACHE_KEY = "ALL_EVENTS";
+			events =  (ArrayList<Event>) syncCache.get(CACHE_KEY);
+			if(events == null){
+				
+				events = new ArrayList<Event>();
+				for (Entity eventEntity : pq.asIterable()) {
 				event = new Event();
 			
 				event.setS_hour(((Long)eventEntity.getProperty("s_hour")).intValue());
@@ -79,6 +85,10 @@ public class EventResource {
 				event.setId(KeyFactory.keyToString(eventEntity.getKey()));
 				event.setActivity((String)eventEntity.getProperty("activity"));
 				events.add(event);
+			}
+
+			syncCache.put(CACHE_KEY, events, Expiration.byDeltaSeconds(30));
+			
 			
 		}
 		return events;	
@@ -187,7 +197,7 @@ public class EventResource {
 			events = new ArrayList<Event>();
 		}
 		events.add(event);
-		syncCache.put(CACHE_KEY, events, Expiration.byDeltaSeconds(60));
+		syncCache.put(CACHE_KEY, events, Expiration.byDeltaSeconds(30));
 
 		return event;
 		

@@ -54,8 +54,8 @@ public class TestActivity {
             String s = "";
             Activity activity = new Activity();
             boolean passed = true;
-            activity.setName("running");
-            activity.setDescription("Let's go for a run!");
+            activity.setName("Football");
+            activity.setDescription("Up for a match??");
             
 
             Response response = service.path("rest").path("activity").request(MediaType.APPLICATION_JSON).post(Entity.entity(activity,MediaType.APPLICATION_JSON),Response.class);
@@ -85,8 +85,8 @@ public class TestActivity {
             String s = "";
             boolean passed = true;
             Activity activity = new Activity();
-            activity.setName("running");
-            activity.setDescription("Let's go for a run!");
+            activity.setName("Swimming");
+            activity.setDescription("What a perfect day for a swim!");
             
 
             Response response = service.path("rest").path("activity").path("toMemcache").request(MediaType.APPLICATION_JSON).post(Entity.entity(activity,MediaType.APPLICATION_JSON),Response.class);
@@ -112,8 +112,8 @@ public class TestActivity {
         public void addActivityToCacheTest() throws Exception {
         
             Activity activity = new Activity();
-            activity.setName("running");
-            activity.setDescription("Let's go for a run!");
+            activity.setName("Hiking");
+            activity.setDescription("Let's explore the mountains");
                   
             Response response = service.path("rest").path("activity").path("toMemcache").request(MediaType.APPLICATION_JSON).post(Entity.entity(activity,MediaType.APPLICATION_JSON),Response.class);
             int status = response.getStatus();

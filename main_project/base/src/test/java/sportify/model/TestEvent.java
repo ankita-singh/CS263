@@ -65,7 +65,7 @@ public class TestEvent {
             event1.setS_min(30);
             event1.setE_hour(9);
             event1.setE_min(30);
-            event1.setActivity("football");
+            event1.setActivity("Swimming");
             event1.setOwner("ankita");
             event1.setOwnerId("123");
 
@@ -102,7 +102,7 @@ public class TestEvent {
             event1.setS_min(30);
             event1.setE_hour(9);
             event1.setE_min(30);
-            event1.setActivity("football");
+            event1.setActivity("Hiking");
             event1.setOwner("ankita");
             event1.setOwnerId("123");
 
@@ -137,7 +137,7 @@ public class TestEvent {
             event1.setS_min(30);
             event1.setE_hour(9);
             event1.setE_min(30);
-            event1.setActivity("football");
+            event1.setActivity("Swimming");
             event1.setOwner("ankita");
             event1.setOwnerId("123");
 
@@ -178,7 +178,7 @@ public class TestEvent {
             event1.setS_min(30);
             event1.setE_hour(9);
             event1.setE_min(30);
-            event1.setActivity("football");
+            event1.setActivity("Basketball");
             event1.setOwner("ankita");
             event1.setOwnerId("123");
 
