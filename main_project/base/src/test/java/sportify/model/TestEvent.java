@@ -30,14 +30,14 @@ public class TestEvent {
         public void createEventTest() throws Exception {
         
             Event event1 = new Event();
-            event1.setDay(8);
+            event1.setDay("Sunday");
             event1.setS_hour(8);
             event1.setS_min(30);
             event1.setE_hour(9);
             event1.setE_min(30);
             event1.setActivity("football");
-            event1.setOwner("ankita");
-            event1.setOwnerId("123");
+            event1.setOwner("test_owner");
+            event1.setOwnerId("test_id");
             
             Response response = service.path("rest").path("event").request(MediaType.APPLICATION_JSON).post(Entity.entity(event1,MediaType.APPLICATION_JSON),Response.class);
             int status = response.getStatus();
@@ -60,14 +60,14 @@ public class TestEvent {
             //create an event which would be fetched later
             Event event1 = new Event();
             String s;
-            event1.setDay(1);
+            event1.setDay("Monday");
             event1.setS_hour(8);
             event1.setS_min(30);
             event1.setE_hour(9);
             event1.setE_min(30);
             event1.setActivity("Swimming");
-            event1.setOwner("ankita");
-            event1.setOwnerId("123");
+            event1.setOwner("test_owner");
+            event1.setOwnerId("test_id");
 
             Response response = service.path("rest").path("event").request(MediaType.APPLICATION_JSON).post(Entity.entity(event1,MediaType.APPLICATION_JSON),Response.class);
             
@@ -97,14 +97,14 @@ public class TestEvent {
         
             String s = "";
             Event event1 = new Event();
-            event1.setDay(7);
+            event1.setDay("Tuesday");
             event1.setS_hour(8);
             event1.setS_min(30);
             event1.setE_hour(9);
             event1.setE_min(30);
             event1.setActivity("Hiking");
-            event1.setOwner("ankita");
-            event1.setOwnerId("123");
+            event1.setOwner("test_owner");
+            event1.setOwnerId("test_id");
 
             Response response = service.path("rest").path("event").request(MediaType.APPLICATION_JSON).post(Entity.entity(event1,MediaType.APPLICATION_JSON),Response.class);
             Event event2 = response.readEntity(Event.class);
@@ -132,14 +132,14 @@ public class TestEvent {
             boolean passed = false;
             Event event1 = new Event();
             String s;
-            event1.setDay(1);
+            event1.setDay("Wednesday");
             event1.setS_hour(8);
             event1.setS_min(30);
             event1.setE_hour(9);
             event1.setE_min(30);
             event1.setActivity("Swimming");
-            event1.setOwner("ankita");
-            event1.setOwnerId("123");
+            event1.setOwner("test_owner");
+            event1.setOwnerId("test_id");
 
             Response response = service.path("rest").path("event").request(MediaType.APPLICATION_JSON).post(Entity.entity(event1,MediaType.APPLICATION_JSON),Response.class);
             
@@ -173,14 +173,14 @@ public class TestEvent {
             //create an event which would be fetched later
             Event event1 = new Event();
             String s;
-            event1.setDay(1);
+            event1.setDay("Thursday");
             event1.setS_hour(8);
             event1.setS_min(30);
             event1.setE_hour(9);
             event1.setE_min(30);
             event1.setActivity("Basketball");
-            event1.setOwner("ankita");
-            event1.setOwnerId("123");
+            event1.setOwner("test_owner");
+            event1.setOwnerId("test_id");
 
             Response response = service.path("rest").path("event").request(MediaType.APPLICATION_JSON).post(Entity.entity(event1,MediaType.APPLICATION_JSON),Response.class);
             

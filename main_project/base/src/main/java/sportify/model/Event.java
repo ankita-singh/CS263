@@ -16,7 +16,7 @@ public class Event implements Serializable{
 	
 	
 	String id;
-	int day;
+	String day;
 	int s_hour;
 	int s_min;
 	int e_hour;
@@ -38,11 +38,11 @@ public class Event implements Serializable{
 		this.id = id;
 	}
 	
-	public int getDay() {
+	public String getDay() {
 		return day;
 	}
 	@XmlElement
-	public void setDay(int day) {
+	public void setDay(String day) {
 		this.day = day;
 	}
 	

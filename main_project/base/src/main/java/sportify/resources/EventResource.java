@@ -81,13 +81,13 @@ public class EventResource {
 				event.setE_min(((Long)eventEntity.getProperty("e_min")).intValue());				
 				event.setOwner((String)eventEntity.getProperty("owner"));
 				event.setOwnerId((String)eventEntity.getProperty("ownerId"));
-				event.setDay(((Long)eventEntity.getProperty("day")).intValue());
+				event.setDay((String)eventEntity.getProperty("day"));
 				event.setId(KeyFactory.keyToString(eventEntity.getKey()));
 				event.setActivity((String)eventEntity.getProperty("activity"));
 				events.add(event);
 			}
 
-			syncCache.put(CACHE_KEY, events, Expiration.byDeltaSeconds(30));
+			syncCache.put(CACHE_KEY, events, Expiration.byDeltaSeconds(1));
 			
 			
 		}
@@ -117,7 +117,7 @@ public class EventResource {
 				event.setE_hour(((Long)eventEntity.getProperty("e_hour")).intValue());
 				event.setE_min(((Long)eventEntity.getProperty("e_min")).intValue());				
 				event.setOwner((String)eventEntity.getProperty("owner"));
-				event.setDay(((Long)eventEntity.getProperty("day")).intValue());
+				event.setDay((String)eventEntity.getProperty("day"));
 				event.setOwnerId((String)eventEntity.getProperty("ownerId"));
 				event.setActivity((String)eventEntity.getProperty("activity"));
 				event.setId(KeyFactory.keyToString(eventEntity.getKey()));
@@ -147,7 +147,7 @@ public class EventResource {
 				Entity event_entity;
 				try {
 					event_entity = datastore.get(event_key);
-					event.setDay((int) event_entity.getProperty("day"));
+					event.setDay((String) event_entity.getProperty("day"));
 		            event.setS_hour((int) event_entity.getProperty("s_hour"));
 		            event.setS_min((int) event_entity.getProperty("s_min"));
 		            event.setE_hour((int) event_entity.getProperty("e_hour"));
@@ -184,6 +184,13 @@ public class EventResource {
 		eventEntity.setProperty("owner", userService.getCurrentUser().getNickname());
 		eventEntity.setProperty("ownerId", userService.getCurrentUser().getUserId());
 	    }
+
+	    //for integration testing
+	    else
+	    {
+	    	eventEntity.setProperty("owner", "test_user");
+			eventEntity.setProperty("ownerId", "test_id");
+	    }
 		datastore.put(eventEntity);
 
 		String id = KeyFactory.keyToString(eventEntity.getKey());
@@ -197,7 +204,7 @@ public class EventResource {
 			events = new ArrayList<Event>();
 		}
 		events.add(event);
-		syncCache.put(CACHE_KEY, events, Expiration.byDeltaSeconds(30));
+		syncCache.put(CACHE_KEY, events, Expiration.byDeltaSeconds(1));
 
 		return event;
 		

@@ -135,7 +135,7 @@
             if(user!=null){
      %>
     <!-- Pick your interests -->
-    <section id="contact">
+    <!-- <section id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -145,8 +145,6 @@
             </div>
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2" style="text-align:center;">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
                     <ul class="list-group checked-list-box" style="max-height: 300px;overflow: auto;text-align:left;">
                       <li class="list-group-item" data-style="button">Up for a walk?</li>
                       <li class="list-group-item" data-style="button" data-color="success">Basketball!!</li>
@@ -161,7 +159,7 @@
 
             </div>
         </div>
-    </section>
+    </section> -->
     
 
     <!-- View Activities -->
@@ -342,13 +340,13 @@
                                   <div class="form-group">
                                     <label for="day">Pick the day!</label>
                                      <select class="form-control" id="day" placeholder="Day"> 
-                                        <option value="1">Sunday</option>
-                                        <option value="2">Monday</option>
-                                        <option value="3">Tuesday</option>
-                                        <option value="4">Wednesday</option>
-                                        <option value="5">Thursday</option>
-                                        <option value="6">Friday</option>
-                                        <option value="7">Saturday</option>
+                                        <option value="Sunday">Sunday</option>
+                                        <option value="Monday">Monday</option>
+                                        <option value="Tuesday">Tuesday</option>
+                                        <option value="Wednesday">Wednesday</option>
+                                        <option value="Thursday">Thursday</option>
+                                        <option value="Friday">Friday</option>
+                                        <option value="Saturday">Saturday</option>
                                     </select>
                                   </div>
                                   <div class="form-group">
@@ -424,7 +422,7 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2">
                         <div class="modal-body" style="overflow-y: auto;">
-                            <h2>Activities around you!</h2>
+                            <h2>Events around you!</h2>
                             <hr class="star-primary">
                             <img src="img/portfolio/circus.png" class="img-responsive img-centered" alt="" height="100" width="200">
                             <table id = "event_table" class="table table-striped table-hover" style="text-align: left;">
