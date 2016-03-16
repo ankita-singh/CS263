@@ -75,9 +75,9 @@
                             if (user != null) {
                                 pageContext.setAttribute("user", user);
                     %>
-                    <li class="page-scroll">
+                    <!-- <li class="page-scroll">
                         <a href="#contact">Pick your Interests</a>
-                    </li>
+                    </li> -->
                     <li class="page-scroll">
                         <a href="#about">Events</a>
                     </li>
@@ -600,6 +600,7 @@ function createActivity(){
               dataType: "json",
               success: function(){
                   alert("Your activity has been created");
+                  return;
               }
             })
         }

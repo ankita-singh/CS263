@@ -19,7 +19,7 @@ public class Activity implements Serializable{
 	
 	String name;
 	String description;
-	String ownerId;
+	
 
 	public Activity(){
 		
@@ -40,12 +40,6 @@ public class Activity implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getOwnerId() {
-		return ownerId;
-	}
-	@XmlElement
-	public void setOwnerId(String ownerId) {
-		this.ownerId = ownerId;
-	}
+	
 
 }

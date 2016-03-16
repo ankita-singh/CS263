@@ -40,6 +40,8 @@ import com.google.appengine.api.memcache.MemcacheServiceFactory;
 
 import com.google.appengine.api.users.*;
 
+import javax.ws.rs.BadRequestException;
+
 
 import sportify.model.Event;
 
@@ -58,7 +60,7 @@ public class EventResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<Event> getEvent()
+	public ArrayList<Event> getEvent() throws BadRequestException
 		{
 		
 		
@@ -98,7 +100,7 @@ public class EventResource {
 	@GET
 	@Path("/byOwner")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<Event> getEventbyOwner()
+	public ArrayList<Event> getEventbyOwner() throws BadRequestException
 		{
 		
 			ArrayList<Event> events = new ArrayList<Event>();
@@ -130,46 +132,12 @@ public class EventResource {
 	}
 	
 
-	
-
-	@GET
-	@Path("/{Id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Event getEventbyId(@PathParam("Id") String id)
-		{
-		 
-		Event event = new Event();
-
-			if(userService.getCurrentUser()!=null)
-
-			{
-				Key event_key = KeyFactory.stringToKey(id);
-				Entity event_entity;
-				try {
-					event_entity = datastore.get(event_key);
-					event.setDay((String) event_entity.getProperty("day"));
-		            event.setS_hour((int) event_entity.getProperty("s_hour"));
-		            event.setS_min((int) event_entity.getProperty("s_min"));
-		            event.setE_hour((int) event_entity.getProperty("e_hour"));
-		            event.setE_min((int) event_entity.getProperty("e_min"));
-		            event.setActivity((String) event_entity.getProperty("activity"));
-		            event.setOwner((String) event_entity.getProperty("owner"));
-		            event.setOwnerId((String) event_entity.getProperty("ownerId"));
-					
-				} catch (EntityNotFoundException e) {
-					
-					e.printStackTrace();
-				}	
-				
-			}
-			return event;	
-	}
-
 
 
 	@POST
 	@Consumes("application/json")
-	public Event createEvent(Event event) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Event createEvent(Event event) throws BadRequestException{
 		
 
 		Entity eventEntity = new Entity("EVENT");
@@ -206,14 +174,49 @@ public class EventResource {
 		events.add(event);
 		syncCache.put(CACHE_KEY, events, Expiration.byDeltaSeconds(1));
 
+		//return KeyFactory.keyToString(eventEntity.getKey());
 		return event;
 		
 	}
 
 
+	@GET
+	@Path("/{Id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Event getEventbyId(@PathParam("Id") String id)throws BadRequestException
+		{
+		 
+		Event event = new Event();
+
+			if(userService.getCurrentUser()!=null)
+
+			{
+				Key event_key = KeyFactory.stringToKey(id);
+				Entity event_entity;
+				try {
+					event_entity = datastore.get(event_key);
+					event.setDay((String) event_entity.getProperty("day"));
+		            event.setS_hour((int) event_entity.getProperty("s_hour"));
+		            event.setS_min((int) event_entity.getProperty("s_min"));
+		            event.setE_hour((int) event_entity.getProperty("e_hour"));
+		            event.setE_min((int) event_entity.getProperty("e_min"));
+		            event.setActivity((String) event_entity.getProperty("activity"));
+		            event.setOwner((String) event_entity.getProperty("owner"));
+		            event.setOwnerId((String) event_entity.getProperty("ownerId"));
+					
+				} catch (EntityNotFoundException e) {
+					
+					e.printStackTrace();
+				}	
+				
+			}
+			return event;	
+	}
+
+
 	@DELETE
   	@Path("/{id}")
-  	public void deleteEvent(@PathParam("id") String id) {
+  	public void deleteEvent(@PathParam("id") String id) throws BadRequestException{
 
   	Queue queue = QueueFactory.getDefaultQueue();
   	queue.add(TaskOptions.Builder.withUrl("/rest/event/taskQueue/"+id).method(TaskOptions.Method.DELETE));
@@ -222,7 +225,7 @@ public class EventResource {
 
 	@DELETE
   	@Path("/taskQueue/{id}")
-  	public void deleteEventQueue(@PathParam("id") String id) {
+  	public void deleteEventQueue(@PathParam("id") String id) throws BadRequestException{
 
 	datastore.delete(KeyFactory.stringToKey(id));
   }
@@ -231,4 +234,3 @@ public class EventResource {
 		
 	
 }
-

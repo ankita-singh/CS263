@@ -17,10 +17,10 @@ import com.google.appengine.api.users.*;
  
 public class TestEvent {
 
-    	
-    	ClientConfig config = new ClientConfig();
+        
+        ClientConfig config = new ClientConfig();
         Client client = ClientBuilder.newClient(config);
-    	WebTarget service = client.target(getBaseURI());
+        WebTarget service = client.target(getBaseURI());
        
 
 

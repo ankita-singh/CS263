@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List; 
 import java.util.logging.Level;
 
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -30,8 +31,8 @@ import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
 
 
-import sportify.model.Event;
 
+import sportify.model.Event;
 import sportify.model.Activity;
 
 import com.google.appengine.api.datastore.Query.Filter;
@@ -53,32 +54,24 @@ public class ActivityResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<Activity> getActivity(){
+	public ArrayList<Activity> getActivity()throws BadRequestException{
 		Query q = new Query("ACTIVITY");
 		PreparedQuery pq = datastore.prepare(q);
-		ArrayList<Activity> activities;
-		String CACHE_KEY = "ALL_ACTIVITIES";
-		activities =  (ArrayList<Activity>) syncCache.get(CACHE_KEY);
-		if(activities == null){
-			activities = new ArrayList<Activity>();
-			for (Entity activityEntity : pq.asIterable()) {
+		ArrayList<Activity> activities = new ArrayList<Activity>();
+			
+		for (Entity activityEntity : pq.asIterable()) {
 				Activity activity = new Activity();
 				activity.setName((String)activityEntity.getProperty("name"));
 				activity.setDescription((String)activityEntity.getProperty("description"));
-				activity.setOwnerId((String)activityEntity.getProperty("ownerId"));
 				activities.add(activity);
 			}
-			syncCache.put(CACHE_KEY, activities, Expiration.byDeltaSeconds(60));
-		}
-		
-		
 		return activities;
 	}
 
 	@GET
 	@Path("/fromMemcache")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<Activity> getActivitiesFromMemcache(){
+	public ArrayList<Activity> getActivitiesFromMemcache()throws BadRequestException{
 	
 		ArrayList<Activity> activities;
 		String CACHE_KEY = "ALL_ACTIVITIES";
@@ -89,26 +82,13 @@ public class ActivityResource {
 
 	@POST
 	@Consumes("application/json")
-	public void createActivity(Activity activity) {
+	public void createActivity(Activity activity) throws BadRequestException{
 		
 
 		Entity activityEntity = new Entity("ACTIVITY");
 		activityEntity.setProperty("name", activity.getName());
 		activityEntity.setProperty("description", activity.getDescription());
-		if(userService.getCurrentUser()!=null)
-		activityEntity.setProperty("ownerId", userService.getCurrentUser().getUserId());
 		datastore.put(activityEntity);
-		
-		//Storing in cache
-		String CACHE_KEY = "ALL_ACTIVITIES";
-		ArrayList<Activity> activities;
-		activities =  (ArrayList<Activity>) syncCache.get(CACHE_KEY);
-		if(activities == null){
-			
-			activities = new ArrayList<Activity>();
-		}
-		activities.add(activity);
-		syncCache.put(CACHE_KEY, activities, Expiration.byDeltaSeconds(60));
 		
 	}
 
@@ -116,7 +96,7 @@ public class ActivityResource {
 	@POST
 	@Path("/toMemcache")
 	@Consumes("application/json")
-	public void addActivityToCache(Activity activity) {
+	public void addActivityToCache(Activity activity) throws BadRequestException{
 		String CACHE_KEY = "ALL_ACTIVITIES";
 		ArrayList<Activity> activities;
 		activities =  (ArrayList<Activity>) syncCache.get(CACHE_KEY);
@@ -128,35 +108,6 @@ public class ActivityResource {
 		syncCache.put(CACHE_KEY, activities, Expiration.byDeltaSeconds(60));
 		
 	}
-
-	/*@GET
-	@Path("/byOwner")
-	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<Activity> getActivitybyOwner()
-		{
-		
-			ArrayList<Activity> activities = new ArrayList<Activity>();
-			if(userService.getCurrentUser()!=null)
-
-			{
-				Activity activity;
-				Filter byOwner = new FilterPredicate("ownerId", FilterOperator.EQUAL, userService.getCurrentUser().getUserId());
-        		Query q = new Query("ACTIVITY").setFilter(byOwner);
-				PreparedQuery pq = datastore.prepare(q);
-				for (Entity activityEntity : pq.asIterable()) {
-					activity = new Activity();
-						
-				activity.setName((String)activityEntity.getProperty("name"));
-				activity.setOwnerId((String)activityEntity.getProperty("ownerId"));
-				activity.setDescription((String)activityEntity.getProperty("description"));
-				activities.add(activity);
-			
-				}
-				
-			}
-			return activities;	
-	}
-	*/
 
 
 }
